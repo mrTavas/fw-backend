@@ -1,6 +1,6 @@
 # Rest Api Документация
 
-Документация содержит  список все доступных методов.
+Документация содержит список все доступных методов, их описание.
 
 ### Список методов:
 [DropModels](#DropModels)
@@ -64,7 +64,7 @@ ___
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjowLCJsb2dpbiI6ODk4ODg3OTQ3NDcsImV4cCI6MTU4ODk4MDQ3NiwiaWF0IjoxNTg4OTc0NDc2fQ.AJ8Xk9i6JeM0SvHLTJP_uUAH6uXMMsrt83eUhcb_R2I",
     "refresh_token": "19ac79b3-6561-42c0-b9da-a19c7f7c6e88",
     "refresh_expiration": "2020-09-26T00:47:56.613403344+03:00"
-}
+    }
  
  Ответ в случае неудачи (пользователь уже есть в базе данных):
  
