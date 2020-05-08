@@ -13,10 +13,10 @@ import (
 
 func main() {
 
-	// получение конфиг структуры
+	// connecting config struct
 	configs.InitConfigs("configs/config")
 
-	// подключение к бд
+	// connecting to db
 	err := dbconn.Connect()
 	if err != nil {
 		panic(err)
@@ -34,7 +34,9 @@ func main() {
 	jwtGroup.POST("/newmanager", h.AddManager)
 	jwtGroup.POST("/newworker", h.AddWorker)
 	jwtGroup.POST("/login", h.Login)
-	jwtGroup.POST("/refresh", h.LoginRefresh)
+	jwtGroup.POST("/loginrefresh", h.LoginRefresh)
+
+	//e.GET("/api/GetManagers", h.GetManagers)
 
 	// JWT middleware
 	o := e.Group("/api")
@@ -45,9 +47,11 @@ func main() {
 
 	e.GET("/CreateModels", h.CreateModels)
 	e.GET("/DropModels", h.DropModels)
-	e.GET("/GetManagers", h.GetManagers)
 	e.POST("/CheckPhone", handlers.CheckPhone)
 	e.POST("/Login", handlers.Login)
+
+	e.GET("/GetManagers", h.GetManagers)
+	e.GET("/GetWorkers", h.GetWorkers)
 
 	o.GET("/main", h.TestJwt)
 
