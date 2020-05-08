@@ -6,25 +6,25 @@ import (
 	"github.com/labstack/echo"
 
 	//local
-
 	db "github.com/mrTavas/fw-backend/dbconn"
+	"github.com/mrTavas/fw-backend/models"
 )
 
-type OutJSON struct {
-	Respons  string   `json:"response"`
-	Managers []string `json:"managers"`
+// AllManagers - json response type
+type AllManagers struct {
+	Managers []models.Managers `json:"managers"`
 }
 
-// GetManagers sdc
+// GetManagers Return all managers from db
 func GetManagers(c echo.Context) error {
 
-	var x []string
-	// var Manager models.
+	var OutResponse AllManagers
 
-	_, err := db.Conn.Query(&x, "SELECT INITIALS FROM managers")
+	_, err := db.Conn.Query(&OutResponse.Managers, "SELECT * FROM managers")
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
-	return echo.NewHTTPError(http.StatusOK, x)
+
+	return echo.NewHTTPError(http.StatusOK, OutResponse)
 
 }
