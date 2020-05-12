@@ -21,6 +21,7 @@ func GetManagers(c echo.Context) error {
 	var OutResponse AllManagers
 
 	_, err := db.Conn.Query(&OutResponse.Managers, "SELECT * FROM managers")
+
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
