@@ -29,14 +29,22 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
+
+	// e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	// 	AllowOrigins: []string{"*"},
+	// 	AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
+	// }))
+
 	// Routes
 	jwtGroup := e.Group("/api/auth")
 	jwtGroup.POST("/newmanager", h.AddManager)
 	jwtGroup.POST("/newworker", h.AddWorker)
 	jwtGroup.POST("/login", h.Login)
 	jwtGroup.POST("/loginrefresh", h.LoginRefresh)
-
-	//e.GET("/api/GetManagers", h.GetManagers)
 
 	// JWT middleware
 	o := e.Group("/api")
