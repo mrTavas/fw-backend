@@ -19,8 +19,45 @@
 - [Установка PgAdmin4](#PgAdmin4)
 
 ---
-### Golang
-Установка
+## Postgresql
+### Установка:
+
+    sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+
+    wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
+
+    sudo apt-get update
+
+    sudo apt-get install postgresql postgresql-contrib
+
+### Настройка:
+Вы можете либо переключиться в сессию учётной записи postgres и запустить там оболочку программы:
+
+    sudo su - postgres
+    psql
+    
+Попав тем или иным способом в командную строку psql, вам необходимо знать, как из неё выйти. Это можно сделать с помощью ввода команды выхода:
+
+    \q
+    
+Создание новой роли (Имя указывается без кавычек, а пароль — в одинарных кавычках):
+
+    create user testu1 with password 'testpass1';
+    
+Создание базы данных:
+
+    create database vscale_db;
+    
+Назначение прав:
+
+    grant all privileges on database vscale_db to testu1;
+    
+Вся минимально требующаяся предварительная настройка завершена. Вы можете выйти из psql, введя "\q".
+
+---
+    
+## Golang
+### Установка:
 
     cd ~
 
@@ -55,6 +92,10 @@
 Теперь вы сможете создавать будущие проекты со следующей структурой директорий. В этом примере предполагается, что вы используете github.com в качестве репозитория:
 
     $GOPATH/src/github.com/username/project
+    
+### Настройка:
+
+
 ---
 
 
