@@ -18,7 +18,6 @@
 ### PgAdmin4:
 - [Установка PgAdmin4](#PgAdmin4)
 
-----
 
 #Golang
 
