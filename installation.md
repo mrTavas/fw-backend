@@ -94,7 +94,15 @@
     $GOPATH/src/github.com/username/project
     
 ### Настройка:
+Установка необходимых библиотек:
 
+    go get -u github.com/labstack/echo/...
+    
+    go get github.com/go-pg/pg
+    
+    go get github.com/gofrs/uuid
+    
+    go get github.com/spf13/viper
 
 ---
 
