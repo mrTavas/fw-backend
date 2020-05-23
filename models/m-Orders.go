@@ -2,18 +2,19 @@ package models
 
 import "time"
 
-//Orders Order's table
+// Orders Order's table
 type Orders struct {
-	ID           int       `sql:",pk"`
-	Date         time.Time `sql:"default:now()"`
-	Rating       int
-	Status       string
-	ManagerPhone int `json:"manager_phone"`
-	WorkerPhone  int `json:"worker_phone"`
+	ID     int       `sql:",pk"`
+	Date   time.Time `sql:"default:now()"`
+	Status string    `sql:",notnull, default:Office" json:"status"`
 
-	WorkersID int `sql:"on_delete:RESTRICT, on_update: CASCADE"`
-	Workers   *Workers
+	ClientInitials        string `sql:",notnull" json:"client_initials"`
+	ClientPhone           int    `json:"client_phone"`
+	CurrentWorkerInitials string `sql:",notnull" json:"current_worker_initials"`
+	CurrentWorkerPhone    int    `json:"current_worker_phone"`
 
-	ManagersID int `sql:"on_delete:RESTRICT, on_update: CASCADE"`
-	Managers   *Managers
+	CostManufacturing int `sql:",notnull" json:"cost_manufacturing"`
+	CostPainting      int `sql:",notnull" json:"cost_painting"`
+	CostFinishing     int `sql:",notnull" json:"cost_finishing"`
+	CostFull          int `sql:",notnull" json:"cost_full"`
 }
