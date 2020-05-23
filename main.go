@@ -45,6 +45,7 @@ func main() {
 	jwtGroup.POST("/newworker", h.AddWorker)
 	jwtGroup.POST("/login", h.Login)
 	jwtGroup.POST("/loginrefresh", h.LoginRefresh)
+	jwtGroup.POST("/neworder", h.AddOrder)
 
 	// JWT middleware
 	o := e.Group("/api")
@@ -60,6 +61,7 @@ func main() {
 
 	e.GET("/GetManagers", h.GetManagers)
 	e.GET("/GetWorkers", h.GetWorkers)
+	e.GET("/GetOrders", h.GetOrders)
 
 	o.GET("/main", h.TestJwt)
 
