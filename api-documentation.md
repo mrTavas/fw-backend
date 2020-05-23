@@ -18,6 +18,17 @@
 ### Аутентификация:
 - [Login](#Login)
 
+### Работа с заказами:
+- [NewOrder](#NewOrder)
+
+- [GetOrders](#GetOrders)
+
+### Работа с работниками:
+- [GetWorkers](#GetWorkers)
+
+### Работа с менеджерами:
+- [GetManagers](#GetManagers)
+
 ___
 ### CreateModels
     http://fwqqq-backend.ddns.net:1323/CreateModels
@@ -153,4 +164,141 @@ ___
         "refresh_expiration":"0001-01-01T00:00:00Z"
     }
     
+---
+
+### NewOrder
+    http://fwqqq-backend.ddns.net:1323/api/auth/neworder
+    
+Описание:
+Создает новый заказ.
+
+- `ID` - id заказа;
+- `Status` - Статус заказа (Офис/);
+- `ClientInitials` - Инициалы клиента;
+- `ClientPhone` - Телефон клиента;
+- `CurrentWorkerInitials` - Инициалы текущего работника.
+- `CurrentWorkerPhone` - Телефон текущего работника.
+- `СostManufacturing` - Цена производства.
+- `CostPainting` - Цена покраски.
+- `CostFinishing` - Цена производства.
+- `CostFull` - Цена итоговая.
+- `Params` - Массив с таблицами параметров для заказа. Имеет следующую структуру:
+
+- `Title` - Заголовок или комментарий;
+- `Height` - Высота;
+- `Width` - Ширина;
+- `Filenka` - Филёнка;
+
+
+Пример тела запроса:
+
+    {
+        "status": "Office",
+        "client_initials": "Clientov A.V.",
+        "client_phone" : 79888563211,
+        "current_worker_initials": "Ivanon I. I.",
+        "current_worker_phone": 7988121212,
+        "cost_manufacturing": 3000,
+        "cost_painting": 2000,
+        "cost_finishing": 1500,
+        "cost_full": 7500,
+        "params": [
+            {
+                "title": "Some Title or comment",
+                "height": 12,
+                "width": 15,
+                "filenka": "filenka lalala"
+            },
+            {
+                "title": "Some Comment2",
+                "height": 13,
+                "width": 1,
+                "filenka": "some panel2"
+            }]
+    }
+
+Ответ в случае успеха:
+
+    {
+        "message": "Order added"
+    }
+
+
+---
+
+### GetOrders
+    http://fwqqq-backend.ddns.net:1323/GetOrders
+    
+Описание:
+Взвращает список всех заказов. Метод Get.
+
+
+Пример ответа:
+
+    {
+        "orders": [
+            {
+                "ID": 2,
+                "Date": "2020-05-23T15:30:07.688475+03:00",
+                "status": "Office",
+                "client_initials": "Clientov A.V.",
+                "client_phone": 79888563211,
+                "current_worker_initials": "Ivanon I. I.",
+                "current_worker_phone": 7988121212,
+                "cost_manufacturing": 3000,
+                "cost_painting": 2000,
+                "cost_finishing": 1500,
+                "cost_full": 7500,
+                "params": [
+                    {
+                        "title": "Some Title or comment",
+                        "height": 12,
+                        "width": 0,
+                        "filenka": "filenka lalala"
+                    },
+                    {
+                        "title": "Some Comment2",
+                        "height": 13,
+                        "width": 0,
+                        "filenka": "some panel2"
+                    }
+                ]
+            },
+            {
+                "ID": 3,
+                "Date": "2020-05-23T18:15:37.800598+03:00",
+                "status": "Office",
+                "client_initials": "Pavfv A.P",
+                "client_phone": 7988856111,
+                "current_worker_initials": "Ivanon I. I.",
+                "current_worker_phone": 7988121212,
+                "cost_manufacturing": 1300,
+                "cost_painting": 2000,
+                "cost_finishing": 300,
+                "cost_full": 3600,
+                "params": [
+                    {
+                        "title": "Some Title again",
+                        "height": 12,
+                        "width": 0,
+                        "filenka": "filenka123"
+                    }
+                ]
+            }
+        ]
+    }
+
+---
+
+### GetManagers
+    http://fwqqq-backend.ddns.net:1323/GetManagers
+    
+Описание:
+Взвращает список всех менеджеров. Метод Get.
+
+
+Пример ответа:
+
+
+
 ---
