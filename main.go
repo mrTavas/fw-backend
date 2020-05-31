@@ -42,10 +42,17 @@ func main() {
 	// Routes
 	jwtGroup := e.Group("/api/auth")
 	jwtGroup.POST("/newmanager", h.AddManager)
+	jwtGroup.POST("/DeleteManager", h.DeleteManager)
+
 	jwtGroup.POST("/newworker", h.AddWorker)
+	jwtGroup.POST("/DeleteWorker", h.DeleteWorker)
+
 	jwtGroup.POST("/login", h.Login)
 	jwtGroup.POST("/loginrefresh", h.LoginRefresh)
+
 	jwtGroup.POST("/neworder", h.AddOrder)
+	jwtGroup.POST("/DeleteOrder", h.DeleteOrder)
+	jwtGroup.POST("/GetOrderStatus", h.GetOrderStatus)
 
 	jwtGroup.POST("/upload", h.Upload)
 
