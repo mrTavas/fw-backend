@@ -21,13 +21,19 @@
 ### Работа с заказами:
 - [NewOrder](#NewOrder)
 
+- [DeleteOrder](#GetOrders)
+
 - [GetOrders](#GetOrders)
 
 ### Работа с работниками:
 - [GetWorkers](#GetWorkers)
 
+- [DeleteWorker](#DeleteWorker)
+
 ### Работа с менеджерами:
 - [GetManagers](#GetManagers)
+
+- [DeleteManager](#DeleteManager)
 
 ___
 ### CreateModels
@@ -173,27 +179,38 @@ ___
 Создает новый заказ.
 
 - `ID` - id заказа;
-- `Status` - Статус заказа (Офис/);
+- `Status` - Статус заказа:
+
+    - `status_office` - Этап оффис;
+    - `status_manufacturing` - Этап производтва;
+    - `status_grinding` - Этап шлифовки;
+    - `status_ready` - Этап готовности.
+    
 - `ClientInitials` - Инициалы клиента;
 - `ClientPhone` - Телефон клиента;
-- `CurrentWorkerInitials` - Инициалы текущего работника.
-- `CurrentWorkerPhone` - Телефон текущего работника.
-- `СostManufacturing` - Цена производства.
-- `CostPainting` - Цена покраски.
-- `CostFinishing` - Цена производства.
-- `CostFull` - Цена итоговая.
+- `CurrentWorkerInitials` - Инициалы текущего работника;
+- `CurrentWorkerPhone` - Телефон текущего работника;
+- `СostManufacturing` - Цена производства;
+- `CostPainting` - Цена покраски;
+- `CostFinishing` - Цена производства;
+- `CostFull` - Цена итоговая;
 - `Params` - Массив с таблицами параметров для заказа. Имеет следующую структуру:
 
     - `Title` - Заголовок или комментарий;
     - `Height` - Высота;
     - `Width` - Ширина;
-    - `Filenka` - Филёнка;
+    - `Filenka` - Филёнка.
 
 
 Пример тела запроса:
 
     {
-        "status": "Office",
+        "status": {
+            "status_office": true,
+            "status_manufacturing": false,
+            "status_grinding": false,
+            "status_ready": true
+        },
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
         "current_worker_initials": "Ivanon I. I.",
@@ -204,16 +221,16 @@ ___
         "cost_full": 7500,
         "params": [
             {
-                "title": "Some Title or comment",
+                "title": "Some Title ",
                 "height": 12,
-                "width": 15,
-                "filenka": "filenka lalala"
+                "weight": 15,
+                "filenka": "filenka"
             },
             {
                 "title": "Some Comment2",
                 "height": 13,
-                "width": 1,
-                "filenka": "some panel2"
+                "weight": 1,
+                "filenka": "panel2"
             }]
     }
 
@@ -223,6 +240,31 @@ ___
         "message": "Order added"
     }
 
+
+---
+
+### DeleteOrder
+    http://fwqqq-backend.ddns.net:1323/api/auth/DeleteOrder
+    
+Описание:
+Удаляет заказ по его id. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "Order deleted"
+    }
+
+Пример ответа в случае если заказа с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
 
 ---
 
@@ -238,9 +280,18 @@ ___
     {
         "orders": [
             {
-                "ID": 2,
-                "Date": "2020-05-23T15:30:07.688475+03:00",
-                "status": "Office",
+                "ID": 1,
+                "Date": "2020-06-02T22:18:31.315815+03:00",
+                "status": {
+                    "data_office": "0001-01-01T00:00:00Z",
+                    "data_manufacturing": "0001-01-01T00:00:00Z",
+                    "data_grinding  ": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office": true,
+                    "status_manufacturing": false,
+                    "status_grinding": false,
+                    "status_ready": true
+                },
                 "client_initials": "Clientov A.V.",
                 "client_phone": 79888563211,
                 "current_worker_initials": "Ivanon I. I.",
@@ -251,37 +302,24 @@ ___
                 "cost_full": 7500,
                 "params": [
                     {
-                        "title": "Some Title or comment",
+                        "title": "Some Title ",
                         "height": 12,
                         "width": 0,
-                        "filenka": "filenka lalala"
+                        "filenka": "filenka",
+                        "color": "",
+                        "patina": "",
+                        "fasad_article": "",
+                        "material": ""
                     },
                     {
                         "title": "Some Comment2",
                         "height": 13,
                         "width": 0,
-                        "filenka": "some panel2"
-                    }
-                ]
-            },
-            {
-                "ID": 3,
-                "Date": "2020-05-23T18:15:37.800598+03:00",
-                "status": "Office",
-                "client_initials": "Pavfv A.P",
-                "client_phone": 7988856111,
-                "current_worker_initials": "Ivanon I. I.",
-                "current_worker_phone": 7988121212,
-                "cost_manufacturing": 1300,
-                "cost_painting": 2000,
-                "cost_finishing": 300,
-                "cost_full": 3600,
-                "params": [
-                    {
-                        "title": "Some Title again",
-                        "height": 12,
-                        "width": 0,
-                        "filenka": "filenka123"
+                        "filenka": "panel2",
+                        "color": "",
+                        "patina": "",
+                        "fasad_article": "",
+                        "material": ""
                     }
                 ]
             }
