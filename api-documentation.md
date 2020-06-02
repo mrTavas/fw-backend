@@ -36,6 +36,8 @@
 - [DeleteManager](#DeleteManager)
 
 ___
+
+## ----Администрирование
 ### CreateModels
     http://fwqqq-backend.ddns.net:1323/CreateModels
 
@@ -334,7 +336,42 @@ ___
 Описание:
 Взвращает список всех менеджеров. Метод Get.
 
-
 Пример ответа:
+
+    {
+        "managers": [
+            {
+                "ID": 2,
+                "uuid": "4aaa1b6e-0ce5-4caf-bae0-342f056b345a",
+                "phone": 898887947112,
+                "pass": "qdadas12112",
+                "initials": "Manager2"
+            }
+        ]
+    }
+
+---
+### DeleteManager
+    http://fwqqq-backend.ddns.net:1323/api/auth/DeleteManager
+    
+Описание:
+Удаляет менеджера по его id. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "Manager deleted"
+    }
+
+Пример ответа в случае если заказа с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
 
 ---
