@@ -38,7 +38,6 @@
 ___
 
 ## Администрирование
-|
 ### CreateModels
     http://fwqqq-backend.ddns.net:1323/CreateModels
 
@@ -66,6 +65,8 @@ ___
         "message": "ОШИБКА #42P01 таблица \"orders\" не существует"
     }
 ---
+
+## Регистрация
 ### NewManager
     http://fwqqq-backend.ddns.net:1323/api/auth/newmanager
     
@@ -143,6 +144,8 @@ ___
         "message": "ОШИБКА #23505 повторяющееся значение ключа нарушает ограничение уникальности \"workers_phone_key\""
     }
 ---
+
+## Аутентификация
 ### Login
     http://fwqqq-backend.ddns.net:1323/api/auth/login
     
@@ -176,6 +179,7 @@ ___
     
 ---
 
+## Работа с заказами
 ### NewOrder
     http://fwqqq-backend.ddns.net:1323/api/auth/neworder
     
@@ -332,6 +336,69 @@ ___
 
 ---
 
+## Работа с работниками
+### GetWorkers
+    http://fwqqq-backend.ddns.net:1323/GetWorkers
+    
+Описание:
+Взвращает список всех работников. Метод Get.
+
+Пример ответа:
+
+    {
+        "workers": [
+            {
+                "ID": 1,
+                "uuid": "e87016e5-85fb-43de-a675-5f1302701cfe",
+                "phone": 898887947477,
+                "pass": "qwerty1",
+                "initials": "Worker1",
+                "carpenter": false,
+                "grinder": false,
+                "painter": false,
+                "collector": false
+            },
+            {
+                "ID": 3,
+                "uuid": "559fe949-167d-47fa-a112-b71834292693",
+                "phone": 898887947472,
+                "pass": "qwerty1",
+                "initials": "Worker2",
+                "carpenter": false,
+                "grinder": false,
+                "painter": false,
+                "collector": false
+            }
+        ]
+    }
+
+---
+### DeleteWorker
+    http://fwqqq-backend.ddns.net:1323/api/auth/DeleteWorker
+    
+Описание:
+Удаляет работника по его id. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "Manager deleted"
+    }
+
+Пример ответа в случае если работник с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
+
+---
+
+## Работа с менеджерами
 ### GetManagers
     http://fwqqq-backend.ddns.net:1323/GetManagers
     
@@ -370,7 +437,7 @@ ___
         "message": "Manager deleted"
     }
 
-Пример ответа в случае если заказа с таким id несуществует:
+Пример ответа в случае если менеджера с таким id несуществует:
 
     {
         "message": "pg: no rows in result set"
