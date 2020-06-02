@@ -243,7 +243,11 @@ ___
                 "title": "Some Comment2",
                 "height": 13,
                 "weight": 1,
-                "filenka": "panel2"
+                "filenka": "panel2",
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree"                
             }]
     }
 
