@@ -198,7 +198,8 @@ ___
     - `status_manufacturing` - Этап производтва;
     - `status_grinding` - Этап шлифовки;
     - `status_ready` - Этап готовности.
-    
+
+- `Title` - Название заказа:    
 - `ClientInitials` - Инициалы клиента;
 - `ClientPhone` - Телефон клиента;
 - `CurrentWorkerInitials` - Инициалы текущего работника;
@@ -224,6 +225,7 @@ ___
             "status_grinding": false,
             "status_ready": true
         },
+        "title": "Title",
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
         "current_worker_initials": "Ivanon I. I.",
@@ -232,6 +234,10 @@ ___
         "cost_painting": 2000,
         "cost_finishing": 1500,
         "cost_full": 7500,
+        "color": "red",
+        "patina": "patina",
+        "fasad_article": "SomeArticle",
+        "material": "tree", 
         "params": [
             {
                 "title": "Some Title ",
@@ -243,11 +249,7 @@ ___
                 "title": "Some Comment2",
                 "height": 13,
                 "weight": 1,
-                "filenka": "panel2",
-                "color": "red",
-                "patina": "patina",
-                "fasad_article": "SomeArticle",
-                "material": "tree"                
+                "filenka": "panel2"               
             }]
     }
 
