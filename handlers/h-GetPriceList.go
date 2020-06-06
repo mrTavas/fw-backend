@@ -18,9 +18,9 @@ type AllPriceList struct {
 // GetPriceList -
 func GetPriceList(c echo.Context) error {
 
-	var OutResponse models.PriceList
+	var OutResponse AllPriceList
 
-	_, err := db.Conn.Query(&OutResponse, "SELECT * FROM PriceList")
+	_, err := db.Conn.Query(&OutResponse.PriceList, "SELECT * FROM price_lists")
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
