@@ -235,7 +235,7 @@ ___
         "color": "red",
         "patina": "patina",
         "fasad_article": "SomeArticle",
-        "material": "tree" 
+        "material": "tree", 
         "params": [
             {
                 "title": "Some Title ",
