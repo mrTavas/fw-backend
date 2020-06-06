@@ -71,6 +71,7 @@ func main() {
 	e.GET("/GetManagers", h.GetManagers)
 	e.GET("/GetWorkers", h.GetWorkers)
 	e.GET("/GetOrders", h.GetOrders)
+	e.GET("/GetPriceList", h.GetPriceList)
 
 	o.GET("/main", h.TestJwt)
 
