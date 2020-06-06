@@ -27,6 +27,12 @@
 
 - [GetOrderStatus](#GetOrderStatus)
 
+- [NextStatus](#NextStatus)
+
+- [DropStatus](#DropStatus)
+
+- [GetPriceList](#GetPriceList)
+
 ### Работа с работниками:
 - [GetWorkers](#GetWorkers)
 
@@ -223,7 +229,8 @@ ___
             "status_office": true,
             "status_manufacturing": false,
             "status_grinding": false,
-            "status_ready": true
+            "status_printing": false,
+            "status_ready": false
         },
         "title": "Title",
         "client_initials": "Clientov A.V.",
@@ -305,11 +312,13 @@ ___
                     "data_office": "0001-01-01T00:00:00Z",
                     "data_manufacturing": "0001-01-01T00:00:00Z",
                     "data_grinding  ": "0001-01-01T00:00:00Z",
+                    "data_printing  ": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
                     "status_office": true,
                     "status_manufacturing": false,
                     "status_grinding": false,
-                    "status_ready": true
+                    "status_printing": false,
+                    "status_ready": false
                 },
                 "client_initials": "Clientov A.V.",
                 "client_phone": 79888563211,
@@ -364,17 +373,124 @@ ___
         "data_office": "0001-01-01T00:00:00Z",
         "data_manufacturing": "0001-01-01T00:00:00Z",
         "data_grinding  ": "0001-01-01T00:00:00Z",
+        "data_printing  ": "0001-01-01T00:00:00Z",
         "data_ready": "0001-01-01T00:00:00Z",
         "status_office": true,
         "status_manufacturing": false,
         "status_grinding": false,
-        "status_ready": true
+        "status_printing": false,
+        "status_ready": false
     }
 
 Пример ответа в случае если заказа с таким id несуществует:
 
     {
         "message": "pg: no rows in result set"
+    }
+
+---
+
+### NextStatus
+    fwqqq-backend.ddns.net:1323/api/auth/NextStatus
+    
+Описание:
+Устанавливает значение следующего статуса в `true` и устанавливает текущее время для данного статуса, по id заказа. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Возвращает текущий статус заказа. Пример ответа:
+
+    {
+        "message": "ready"
+    }
+
+Пример ответа в случае если заказа с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
+
+---
+
+### DropStatus
+    fwqqq-backend.ddns.net:1323/api/auth/DropStatus
+    
+Описание:
+Устанавливает значения статусов заказа в `false` (все кроме `status_office`) даты статусов не меняются, по id заказа. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "OK"
+    }
+
+Пример ответа в случае если заказа с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
+
+---
+
+### GetPriceList
+    fwqqq-backend.ddns.net:1323/GetPriceList
+    
+Описание:
+Возвращает прайс лист. Метод Get.
+
+Пример ответа:
+
+    {
+        "PriceList": [
+            {
+                "name": "f_01",
+                "price": 4200
+            },
+            {
+                "name": "f_02",
+                "price": 4500
+            },
+            {
+                "name": "f_03",
+                "price": 5000
+            },
+            {
+                "name": "f_04",
+                "price": 5500
+            },
+            {
+                "name": "a_01",
+                "price": 7000
+            },
+            {
+                "name": "a_02",
+                "price": 8000
+            },
+            {
+                "name": "b_01",
+                "price": 7500
+            },
+            {
+                "name": "Modern",
+                "price": 6000
+            },
+            {
+                "name": "Mausoleum",
+                "price": 6500
+            },
+            {
+                "name": "Massif",
+                "price": 8500
+            }
+        ]
     }
 
 ---
