@@ -198,7 +198,8 @@ ___
     - `status_manufacturing` - Этап производтва;
     - `status_grinding` - Этап шлифовки;
     - `status_ready` - Этап готовности.
-    
+
+- `Title` - Название заказа:    
 - `ClientInitials` - Инициалы клиента;
 - `ClientPhone` - Телефон клиента;
 - `CurrentWorkerInitials` - Инициалы текущего работника;
@@ -224,6 +225,7 @@ ___
             "status_grinding": false,
             "status_ready": true
         },
+        "title": "Title",
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
         "current_worker_initials": "Ivanon I. I.",
