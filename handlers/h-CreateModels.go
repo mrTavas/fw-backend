@@ -15,6 +15,7 @@ import (
 func CreateModels(c echo.Context) error {
 
 	for _, model := range []interface{}{
+		&models.PriceList{},
 		&models.Workers{},
 		&models.Managers{},
 		&models.Orders{},
@@ -29,5 +30,6 @@ func CreateModels(c echo.Context) error {
 		}
 	}
 
+	GetAutoPrice()
 	return c.String(http.StatusOK, "Models Created")
 }
