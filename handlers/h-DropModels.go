@@ -14,7 +14,9 @@ import (
 //DropModels Delete all models in database.
 func DropModels(c echo.Context) error {
 
-	for _, model := range []interface{}{&models.Orders{},
+	for _, model := range []interface{}{
+		&models.PriceList{},
+		&models.Orders{},
 		&models.Workers{},
 		&models.Managers{},
 		&models.Sessions{}} {
