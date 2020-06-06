@@ -32,8 +32,13 @@ func AddOrder(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
+	// Default values
+	inputJSON.Status.StatusOffice = true
+
+	// Insert
 	err = db.Conn.Insert(&models.Orders{
 		Date:                  inputJSON.Date,
+		Title:                 inputJSON.Title,
 		Status:                inputJSON.Status,
 		ClientInitials:        inputJSON.ClientInitials,
 		ClientPhone:           inputJSON.ClientPhone,
@@ -43,6 +48,10 @@ func AddOrder(c echo.Context) error {
 		CostPainting:          inputJSON.CostPainting,
 		CostFinishing:         inputJSON.CostFinishing,
 		CostFull:              inputJSON.CostFull,
+		Color:                 inputJSON.Color,
+		Patina:                inputJSON.Patina,
+		FasadArticle:          inputJSON.FasadArticle,
+		Material:              inputJSON.Material,
 		Params:                inputJSON.Params,
 	})
 
