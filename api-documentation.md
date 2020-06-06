@@ -232,6 +232,10 @@ ___
         "cost_painting": 2000,
         "cost_finishing": 1500,
         "cost_full": 7500,
+        "color": "red",
+        "patina": "patina",
+        "fasad_article": "SomeArticle",
+        "material": "tree" 
         "params": [
             {
                 "title": "Some Title ",
@@ -243,11 +247,7 @@ ___
                 "title": "Some Comment2",
                 "height": 13,
                 "weight": 1,
-                "filenka": "panel2",
-                "color": "red",
-                "patina": "patina",
-                "fasad_article": "SomeArticle",
-                "material": "tree"                
+                "filenka": "panel2"               
             }]
     }
 
