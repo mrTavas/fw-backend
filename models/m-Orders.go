@@ -17,7 +17,7 @@ type OrderStatus struct {
 	DataGrinding      time.Time `sql:"default:null" json:"data_grinding  "`
 	DataReady         time.Time `sql:"default:null" json:"data_ready"`
 
-	StatusOffice        bool `sql:",notnull, default:false" json:"status_office"`
+	StatusOffice        bool `sql:",notnull, default:true" json:"status_office"`
 	StatusManufacturing bool `sql:",notnull, default:false" json:"status_manufacturing"`
 	StatusGrinding      bool `sql:",notnull, default:false" json:"status_grinding"`
 	StatusReady         bool `sql:",notnull, default:false" json:"status_ready"`
@@ -26,6 +26,7 @@ type OrderStatus struct {
 // Orders Order's table
 type Orders struct {
 	ID     int         `sql:",pk"`
+	Title  string      `json:"title"`
 	Date   time.Time   `sql:"default:now()"`
 	Status OrderStatus `json:"status"`
 
