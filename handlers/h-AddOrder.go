@@ -3,6 +3,8 @@ package handlers
 import (
 	"net/http"
 
+	"time"
+
 	"github.com/labstack/echo"
 
 	//local
@@ -34,6 +36,7 @@ func AddOrder(c echo.Context) error {
 
 	// Default values
 	inputJSON.Status.StatusOffice = true
+	inputJSON.Status.DataOffice = time.Now()
 
 	// Insert
 	err = db.Conn.Insert(&models.Orders{
