@@ -12,14 +12,16 @@ type OrdersParam struct {
 
 // OrderStatus and Data list for orders
 type OrderStatus struct {
-	DataOffice        time.Time `sql:"default:null" json:"data_office"`
-	DataManufacturing time.Time `sql:"default:null" json:"data_manufacturing"`
-	DataGrinding      time.Time `sql:"default:null" json:"data_grinding  "`
-	DataReady         time.Time `sql:"default:null" json:"data_ready"`
+	DataOffice        time.Time `sql:"default:now()" json:"data_office"`
+	DataManufacturing time.Time `sql:"default:now()" json:"data_manufacturing"`
+	DataGrinding      time.Time `sql:"default:now()" json:"data_grinding"`
+	DataPrinting      time.Time `sql:"default:now()" json:"data_printing"`
+	DataReady         time.Time `sql:"default:now()" json:"data_ready"`
 
 	StatusOffice        bool `sql:",notnull, default:true" json:"status_office"`
 	StatusManufacturing bool `sql:",notnull, default:false" json:"status_manufacturing"`
 	StatusGrinding      bool `sql:",notnull, default:false" json:"status_grinding"`
+	StatusPrinting      bool `sql:",notnull, default:false" json:"status_printing"`
 	StatusReady         bool `sql:",notnull, default:false" json:"status_ready"`
 }
 
