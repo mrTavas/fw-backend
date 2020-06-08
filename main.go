@@ -53,6 +53,8 @@ func main() {
 	jwtGroup.POST("/neworder", h.AddOrder)
 	jwtGroup.POST("/DeleteOrder", h.DeleteOrder)
 	jwtGroup.POST("/GetOrderStatus", h.GetOrderStatus)
+	jwtGroup.POST("/NextStatus", h.NextStatus)
+	jwtGroup.POST("/DropStatus", h.DropStatus)
 
 	jwtGroup.POST("/upload", h.Upload)
 
