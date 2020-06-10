@@ -41,6 +41,10 @@ func main() {
 
 	// Routes
 	jwtGroup := e.Group("/api/auth")
+	jwtGroup.POST("/newPrice", h.AddPrice)
+	jwtGroup.POST("/changePrice", h.ChangePrice)
+	jwtGroup.POST("/deletePrice", h.DeletePrice)
+
 	jwtGroup.POST("/newmanager", h.AddManager)
 	jwtGroup.POST("/DeleteManager", h.DeleteManager)
 
