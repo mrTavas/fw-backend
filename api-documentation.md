@@ -33,6 +33,13 @@
 
 - [GetPriceList](#GetPriceList)
 
+- [NewPrice](#NewPrice)
+
+- [DeletePrice](#DeletePrice)
+
+- [ChangePrice](#ChangePrice)
+
+
 ### Работа с работниками:
 - [GetWorkers](#GetWorkers)
 
@@ -491,6 +498,71 @@ ___
                 "price": 8500
             }
         ]
+    }
+
+---
+
+### NewPrice
+    http://fwqqq-backend.ddns.net:1323/api/auth/newPrice
+    
+Описание:
+Добавляет запись в прайс лист. Метод Post.
+Пример тела запроса:
+
+    {
+        "name": "Ф_01",
+        "price": 5000
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "OK"
+    }
+
+---
+
+### DeletePrice
+    http://fwqqq-backend.ddns.net:1323/api/auth/deletePrice
+    
+Описание:
+Удаляет запись в прайс листе по имени оъекта. Метод Post.
+Пример тела запроса:
+
+    {
+        "name": "Ф_01"
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "Price deleted"
+    }
+
+Пример ответа в случае если работник с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
+
+---
+
+### ChangePrice
+    http://fwqqq-backend.ddns.net:1323/api/auth/changePrice
+    
+Описание:
+Изменяет запись в прайс листе по имени оъекта. Метод Post.
+Пример тела запроса:
+
+    {
+        "name": "Ф_01",
+        "price": 5000
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "message": "OK"
     }
 
 ---
