@@ -45,6 +45,8 @@
 
 - [DeleteWorker](#DeleteWorker)
 
+- [GetWorkerOrders](#GetWorkerOrders)
+
 ### Работа с менеджерами:
 - [GetManagers](#GetManagers)
 
@@ -625,6 +627,143 @@ ___
 
     {
         "message": "pg: no rows in result set"
+    }
+
+---
+
+### GetWorkerOrders
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetWorkerOrders
+    
+Описание:
+Возвращает текущие заказы работника  по его номеру телефона. Метод Post.
+Пример тела запроса:
+
+    {
+        "current_worker_phone": 7988121212
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "orders": [
+            {
+                "ID": 26,
+                "title": "qwe",
+                "Date": "2020-06-11T11:07:01.029196+03:00",
+                "status": {
+                    "data_office": "2020-06-11T11:07:01.028498471+03:00",
+                    "data_manufacturing": "0001-01-01T00:00:00Z",
+                    "data_grinding": "0001-01-01T00:00:00Z",
+                    "data_printing": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office": true,
+                    "status_manufacturing": false,
+                    "status_grinding": false,
+                    "status_printing": false,
+                    "status_ready": false
+                },
+                "client_initials": "qwe",
+                "client_phone": 0,
+                "current_worker_initials": "Попов Петр",
+                "current_worker_phone": 7988121212,
+                "color": "qwwe",
+                "patina": "qwe",
+                "fasad_article": "",
+                "material": "МДФ-16",
+                "cost_manufacturing": 1,
+                "cost_painting": 1,
+                "cost_finishing": 1,
+                "cost_full": 1,
+                "params": [
+                    {
+                        "title": "Some Title or comment",
+                        "height": 12,
+                        "width": 15,
+                        "filenka": "filenka lalala"
+                    }
+                ]
+            },
+            {
+                "ID": 32,
+                "title": "12",
+                "Date": "2020-06-11T12:36:55.058282+03:00",
+                "status": {
+                    "data_office": "2020-06-11T12:36:55.057564962+03:00",
+                    "data_manufacturing": "0001-01-01T00:00:00Z",
+                    "data_grinding": "0001-01-01T00:00:00Z",
+                    "data_printing": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office": true,
+                    "status_manufacturing": false,
+                    "status_grinding": false,
+                    "status_printing": false,
+                    "status_ready": false
+                },
+                "client_initials": "123",
+                "client_phone": 123,
+                "current_worker_initials": "Попов Петр",
+                "current_worker_phone": 7988121212,
+                "color": "123",
+                "patina": "12",
+                "fasad_article": "",
+                "material": "МДФ-16",
+                "cost_manufacturing": 1,
+                "cost_painting": 1,
+                "cost_finishing": 1,
+                "cost_full": 1,
+                "params": [
+                    {
+                        "title": "Some Title or comment",
+                        "height": 12,
+                        "width": 15,
+                        "filenka": "filenka lalala"
+                    }
+                ]
+            },
+            {
+                "ID": 33,
+                "title": "123",
+                "Date": "2020-06-11T13:10:21.917682+03:00",
+                "status": {
+                    "data_office": "2020-06-11T13:10:21.917146224+03:00",
+                    "data_manufacturing": "0001-01-01T00:00:00Z",
+                    "data_grinding": "0001-01-01T00:00:00Z",
+                    "data_printing": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office": true,
+                    "status_manufacturing": false,
+                    "status_grinding": false,
+                    "status_printing": false,
+                    "status_ready": false
+                },
+                "client_initials": "123",
+                "client_phone": 123,
+                "current_worker_initials": "Попов Петр",
+                "current_worker_phone": 7988121212,
+                "color": "123",
+                "patina": "123",
+                "fasad_article": "",
+                "material": "МДФ-16",
+                "cost_manufacturing": 1,
+                "cost_painting": 1,
+                "cost_finishing": 1,
+                "cost_full": 1,
+                "params": [
+                    {
+                        "title": "Some Title or comment",
+                        "height": 12,
+                        "width": 15,
+                        "filenka": "filenka lalala"
+                    }
+                ]
+            }
+        ]
+    }
+
+Пример ответа если ничего не найденно:
+
+    {
+        "orders": null
     }
 
 ---
