@@ -12,7 +12,7 @@ import (
 
 // AllOrders - json response type
 type AllOrders struct {
-	Olders []models.Orders `json:"orders"`
+	Orders []models.Orders `json:"orders"`
 }
 
 // GetOrders Return all managers from db
@@ -20,7 +20,7 @@ func GetOrders(c echo.Context) error {
 
 	var OutResponse AllOrders
 
-	_, err := db.Conn.Query(&OutResponse.Olders, "SELECT * FROM orders")
+	_, err := db.Conn.Query(&OutResponse.Orders, "SELECT * FROM orders")
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
