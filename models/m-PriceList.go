@@ -4,5 +4,5 @@ package models
 type PriceList struct {
 	// ID    int    `sql:", pk"`
 	NAME  string `sql:", unique" json:"name"`
-	PRICE int    `sql:", unique, notnull" json:"price"`
+	PRICE int    `sql:", notnull" json:"price"`
 }
