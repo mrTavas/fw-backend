@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo"
 
@@ -32,6 +33,11 @@ func DropStatus(c echo.Context) error {
 	statuses.Status.StatusGrinding = false
 	statuses.Status.StatusPrinting = false
 	statuses.Status.StatusReady = false
+
+	statuses.Status.DataManufacturing, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataGrinding, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataPrinting, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataReady, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
 
 	_, err = db.Conn.Model(&statuses).Set("Status = ?", statuses.Status).Where("ID = ?", inputJSON.ID).Update()
 	if err != nil {
