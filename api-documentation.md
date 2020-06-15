@@ -505,7 +505,7 @@ ___
 ---
 
 ### NewPrice
-    http://fwqqq-backend.ddns.net:1323/api/auth/newPrice
+    http://fwqqq-backend.ddns.net:1323/api/auth/NewPrice
     
 Описание:
 Добавляет запись в прайс лист. Метод Post.
@@ -550,7 +550,7 @@ ___
 ---
 
 ### ChangePrice
-    http://fwqqq-backend.ddns.net:1323/api/auth/changePrice
+    http://fwqqq-backend.ddns.net:1323/api/auth/ChangePrice
     
 Описание:
 Изменяет запись в прайс листе по имени оъекта. Метод Post.
