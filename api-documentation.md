@@ -525,7 +525,7 @@ ___
 ---
 
 ### DeletePrice
-    http://fwqqq-backend.ddns.net:1323/api/auth/deletePrice
+    http://fwqqq-backend.ddns.net:1323/api/auth/DeletePrice
     
 Описание:
 Удаляет запись в прайс листе по имени оъекта. Метод Post.
