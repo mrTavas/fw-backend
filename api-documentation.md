@@ -304,7 +304,7 @@ ___
 ---
 
 ### GetOrders
-    http://fwqqq-backend.ddns.net:1323/GetOrders
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetOrders
     
 Описание:
 Взвращает список всех заказов. Метод Get.
@@ -366,7 +366,7 @@ ___
 ---
 
 ### GetOrderStatus
-    http://fwqqq-backend.ddns.net:1323/GetOrderStatus
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetOrderStatus
     
 Описание:
 Взвращает статус заказа по его id. Метод Post.
@@ -450,7 +450,7 @@ ___
 ---
 
 ### GetPriceList
-    fwqqq-backend.ddns.net:1323/GetPriceList
+    fwqqq-backend.ddns.net:1323/api/auth/GetPriceList
     
 Описание:
 Возвращает прайс лист. Метод Get.
@@ -571,7 +571,7 @@ ___
 
 ## Работа с работниками
 ### GetWorkers
-    http://fwqqq-backend.ddns.net:1323/GetWorkers
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetWorkers
     
 Описание:
 Взвращает список всех работников. Метод Get.
@@ -770,7 +770,7 @@ ___
 
 ## Работа с менеджерами
 ### GetManagers
-    http://fwqqq-backend.ddns.net:1323/GetManagers
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetManagers
     
 Описание:
 Взвращает список всех менеджеров. Метод Get.
