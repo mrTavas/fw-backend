@@ -7,7 +7,6 @@ import (
 	//local
 	"github.com/mrTavas/fw-backend/configs"
 	"github.com/mrTavas/fw-backend/dbconn"
-	"github.com/mrTavas/fw-backend/handlers"
 	h "github.com/mrTavas/fw-backend/handlers"
 )
 
@@ -41,26 +40,43 @@ func main() {
 
 	// Routes
 	jwtGroup := e.Group("/api/auth")
-	jwtGroup.POST("/newPrice", h.AddPrice)
-	jwtGroup.POST("/changePrice", h.ChangePrice)
-	jwtGroup.POST("/deletePrice", h.DeletePrice)
 
+	// Clients
+	jwtGroup.POST("/NewClient", h.AddClient)
+	jwtGroup.GET("/GetClients", h.GetClients)
+	jwtGroup.POST("/DeleteClient", h.DeleteClient)
+
+	// PriceList
+	jwtGroup.POST("/NewPrice", h.AddPrice)
+	jwtGroup.POST("/ChangePrice", h.ChangePrice)
+	jwtGroup.POST("/DeletePrice", h.DeletePrice)
+	jwtGroup.GET("/GetPriceList", h.GetPriceList)
+
+	// Managers
 	jwtGroup.POST("/newmanager", h.AddManager)
 	jwtGroup.POST("/DeleteManager", h.DeleteManager)
+	jwtGroup.GET("/GetManagers", h.GetManagers)
 
+	// Workers
 	jwtGroup.POST("/newworker", h.AddWorker)
 	jwtGroup.POST("/DeleteWorker", h.DeleteWorker)
+	jwtGroup.GET("/GetWorkers", h.GetWorkers)
 	jwtGroup.POST("/GetWorkerOrders", h.GetWorkerOrders)
 
+	// Login
 	jwtGroup.POST("/login", h.Login)
 	jwtGroup.POST("/loginrefresh", h.LoginRefresh)
 
+	// Orders
 	jwtGroup.POST("/neworder", h.AddOrder)
 	jwtGroup.POST("/DeleteOrder", h.DeleteOrder)
+	jwtGroup.GET("/GetOrders", h.GetOrders)
+	jwtGroup.GET("/GetSavedOrders", h.GetSavedOrders)
 	jwtGroup.POST("/GetOrderStatus", h.GetOrderStatus)
 	jwtGroup.POST("/NextStatus", h.NextStatus)
 	jwtGroup.POST("/DropStatus", h.DropStatus)
 
+	// Uploads (www/html/uploads)
 	jwtGroup.POST("/upload", h.Upload)
 
 	// JWT middleware
@@ -72,13 +88,8 @@ func main() {
 
 	e.GET("/CreateModels", h.CreateModels)
 	e.GET("/DropModels", h.DropModels)
-	e.POST("/CheckPhone", handlers.CheckPhone)
-	e.POST("/Login", handlers.Login)
-
-	e.GET("/GetManagers", h.GetManagers)
-	e.GET("/GetWorkers", h.GetWorkers)
-	e.GET("/GetOrders", h.GetOrders)
-	e.GET("/GetPriceList", h.GetPriceList)
+	// e.POST("/CheckPhone", handlers.CheckPhone)
+	// e.POST("/Login", handlers.Login)
 
 	o.GET("/main", h.TestJwt)
 
