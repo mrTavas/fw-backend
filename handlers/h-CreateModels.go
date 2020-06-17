@@ -15,6 +15,8 @@ import (
 func CreateModels(c echo.Context) error {
 
 	for _, model := range []interface{}{
+		&models.SavedOrders{},
+		&models.Clients{},
 		&models.PriceList{},
 		&models.Workers{},
 		&models.Managers{},
