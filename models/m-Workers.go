@@ -2,8 +2,11 @@ package models
 
 // Workers Worker's table
 type Workers struct {
-	ID        int    `sql:",pk"`
-	UUID      string `sql:", unique" json:"uuid"`
+	ID   int    `sql:",pk"`
+	UUID string `sql:", unique" json:"uuid"`
+
+	CurrentBalance int `sql:"default:0"`
+
 	Phone     int    `sql:",unique" json:"phone"`
 	Password  string `sql:",notnull" json:"pass"`
 	Initials  string `sql:",notnull" json:"initials"`
