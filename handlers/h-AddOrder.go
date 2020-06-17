@@ -13,38 +13,52 @@ import (
 )
 
 // AddOrder add new worker in table Workers
-// json format:
-// {
-//  "status": "Office"
-// 	"client_initials": "Clientov A.V.",
-// 	"client_phone" : 79888563211,
-// 	"current_worker_initials": "Ivanon I. I.",
-//  "current_worker_phone": 7988121212,
-//  "cost_manufacturing": 3000,
-//  "cost_painting": 2000,
-//  "cost_finishing": 1500,
-//  "cost_full": 7500
-// }
 func AddOrder(c echo.Context) error {
 
 	var inputJSON models.Orders
+	var worker models.Workers
 
 	err := c.Bind(&inputJSON)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
+	// Select Worker by id
+	err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkerID).Select()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+	}
+
+	// Try select Client by id
+	if inputJSON.ClientID > 0 {
+		var client models.Clients
+
+		err = db.Conn.Model(&client).Where("ID = ?", inputJSON.ClientID).Select()
+		if err != nil {
+			return echo.NewHTTPError(http.StatusOK, "Client not found. "+err.Error())
+		}
+
+		inputJSON.ClientInitials = client.Initials
+		inputJSON.ClientPhone = client.Phone
+	}
+
 	// Default values
 	inputJSON.Status.StatusOffice = true
 	inputJSON.Status.DataOffice = time.Now()
+
+	// Add worker by id
+	inputJSON.CurrentWorkerInitials = worker.Initials
+	inputJSON.CurrentWorkerPhone = worker.Phone
 
 	// Insert
 	err = db.Conn.Insert(&models.Orders{
 		Date:                  inputJSON.Date,
 		Title:                 inputJSON.Title,
 		Status:                inputJSON.Status,
+		ClientID:              inputJSON.ClientID,
 		ClientInitials:        inputJSON.ClientInitials,
 		ClientPhone:           inputJSON.ClientPhone,
+		CurrentWorkerID:       inputJSON.CurrentWorkerID,
 		CurrentWorkerInitials: inputJSON.CurrentWorkerInitials,
 		CurrentWorkerPhone:    inputJSON.CurrentWorkerPhone,
 		CostManufacturing:     inputJSON.CostManufacturing,
