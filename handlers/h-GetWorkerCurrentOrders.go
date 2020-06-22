@@ -12,7 +12,7 @@ import (
 // GetWorkerCurrentOrders -
 func GetWorkerCurrentOrders(c echo.Context) error {
 
-	var OutResponse AllSavedOrders
+	var OutResponse AllOrders
 	var inputJSON WorkerID
 
 	err := c.Bind(&inputJSON)
@@ -21,7 +21,7 @@ func GetWorkerCurrentOrders(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
-	err = db.Conn.Model(&OutResponse.SavedOrders).Where("current_worker_id = ?", inputJSON.ID).Select()
+	err = db.Conn.Model(&OutResponse.Orders).Where("current_worker_id = ?", inputJSON.ID).Select()
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
