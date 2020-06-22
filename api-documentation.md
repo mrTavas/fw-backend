@@ -52,6 +52,11 @@
 
 - [DeleteManager](#DeleteManager)
 
+### Работа с клиентами:
+- [GetClients](#GetClients)
+
+- [DeleteClient](#DeleteClient)
+
 ___
 
 ## Администрирование
