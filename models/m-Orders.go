@@ -55,8 +55,8 @@ type Orders struct {
 
 // SavedOrders - saves orders when status chenged
 type SavedOrders struct {
-	ID      int `sql:",pk"`
-	OrderID int
+	ID      int         `sql:",pk"`
+	OrderID int         `json:"order_id"`
 	Title   string      `json:"title"`
 	Date    time.Time   `sql:"default:now()"`
 	Status  OrderStatus `json:"status"`
@@ -80,4 +80,15 @@ type SavedOrders struct {
 	CostFull          int `sql:",notnull" json:"cost_full"`
 
 	Params []OrdersParam `json:"params"`
+}
+
+// OrdersChangesLogs - logs about changes in orders (/editOrder)
+type OrdersChangesLogs struct {
+	ID        int       `sql:",pk"`
+	OrderID   int       `json:"order_id"`
+	Date      time.Time `sql:"default:now()"`
+	ManagerID int       `json:"manager_id"`
+	Initials  string    `json:"initials"`
+
+	Changes string `json:"changes"`
 }
