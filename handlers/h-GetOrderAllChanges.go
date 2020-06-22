@@ -33,7 +33,7 @@ func GetOrderAllChanges(c echo.Context) error {
 	}
 
 	for i := 0; i < len(OutResponse.Changes); i++ {
-		OutResponse.Changes[i].Changes = Remove_quotes(OutResponse.Changes[i].Changes)
+		OutResponse.Changes[i].Changes = RemoveQuotes(OutResponse.Changes[i].Changes)
 	}
 
 	return echo.NewHTTPError(http.StatusOK, OutResponse)

@@ -32,12 +32,13 @@ func GetOrderLastChanges(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusOK, "Нет изменений")
 	}
 
-	OutResponse[len(OutResponse)-1].Changes = Remove_quotes(OutResponse[len(OutResponse)-1].Changes)
+	OutResponse[len(OutResponse)-1].Changes = RemoveQuotes(OutResponse[len(OutResponse)-1].Changes)
 	return echo.NewHTTPError(http.StatusOK, OutResponse[len(OutResponse)-1])
 
 }
 
-func Remove_quotes(s string) string {
+// RemoveQuotes -sw
+func RemoveQuotes(s string) string {
 	var b bytes.Buffer
 	for _, r := range s {
 		if r != '"' && r != '\'' {
