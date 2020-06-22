@@ -15,6 +15,9 @@
 
 - [NewWorker](#NewWorker)
 
+- [NewClient](#NewClient)
+
+
 ### Аутентификация:
 - [Login](#Login)
 
@@ -31,6 +34,15 @@
 
 - [DropStatus](#DropStatus)
 
+- [EditOrder](#EditOrder)
+
+- [GetOrderAllChanges](#GetOrderAllChanges)
+
+- [GetOrderLastChanges](#GetOrderLastChanges)
+
+
+### Работа с прайс листами:
+
 - [GetPriceList](#GetPriceList)
 
 - [NewPrice](#NewPrice)
@@ -45,7 +57,9 @@
 
 - [DeleteWorker](#DeleteWorker)
 
-- [GetWorkerOrders](#GetWorkerOrders)
+- [GetWorkerCurrentOrders](#GetWorkerCurrentOrders)
+
+- [GetWorkerOldOrders](#GetWorkerOldOrders)
 
 ### Работа с менеджерами:
 - [GetManagers](#GetManagers)
@@ -132,15 +146,16 @@ ___
     
 Описание:
 Создает в таблице нового работника. Метод Post. Работника имеет следующие параметры:
-- `ID` - id записи;
-- `UUID` - Uuid генерируется случайноо;
-- `Phone` - Номер телефона;
-- `Password` - Пароль менеджера (md5);
+- `ID` - id записи.
+- `UUID` - Uuid генерируется случайноо.
+- `Phone` - Номер телефона.
+- `Password` - Пароль менеджера (md5).
 - `Initials` - Фамилия и инициалы.
 - `Сarpenter` - Столяр true/false.
 - `Grinder` - Шлифовщик true/false.
 - `Painter` - Маляр true/false.
 - `Collector` - Сборщик true/false.
+- `СurrentBalance` - Текущий баланс работника.
 
  `id` и `uuid` формируются автоматически, а `phone`, `password` и `initials` необходимо передать в json формате. Параметры `Сarpenter`, `Grinder`, `Painter`, `Collector` передаются если они необходимы (если значение не передается, то по умолчанию устанавливается false). Пример тела запроса:
  
@@ -168,6 +183,32 @@ ___
     {
         "message": "ОШИБКА #23505 повторяющееся значение ключа нарушает ограничение уникальности \"workers_phone_key\""
     }
+---
+
+### NewClient
+    http://fwqqq-backend.ddns.net:1323/api/auth/NewClient
+    
+Описание:
+Создает в таблице нового клиента. Метод Post. Менеджер имеет следующие параметры:
+
+- `ID` - id записи;
+- `Phone` - Номер телефона;
+- `Password` - Пароль клиента (код активации из смс, формируется автоматически);
+- `Score` - Скидочный счет клиента (поумолчанию = 1. При значении 0.9 клиент будет иметь скидку в 10%);
+
+Пример тела запроса:
+ 
+    {
+        "phone": 898887947499, 
+        "initials": "Мединцев А. С." 
+    }
+
+Ответ:
+
+    {
+        "message": "OK"
+    }
+ 
 ---
 
 ## Аутентификация
@@ -219,6 +260,10 @@ ___
     - `status_grinding` - Этап шлифовки;
     - `status_ready` - Этап готовности.
 
+- `ClientID` - id клиента (если клиент не зарегистрирован передавать client_id = 0);
+- `ClientInitials` - инициалы клиента (передавать если client_id = 0);
+- `ClientPhone` - телефон клиента (передавать если client_id = 0);
+- `WorkerID` - id работника (инициалы и телефон работника автоматически добавятся в заказ);
 - `Title` - Название заказа:    
 - `ClientInitials` - Инициалы клиента;
 - `ClientPhone` - Телефон клиента;
@@ -243,14 +288,15 @@ ___
             "status_office": true,
             "status_manufacturing": false,
             "status_grinding": false,
-            "status_printing": false,
             "status_ready": false
         },
         "title": "Title",
+        "client_id": 0,
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
+        "current_worker_id": 1,
         "current_worker_initials": "Ivanon I. I.",
-        "current_worker_phone": 7988121212,
+        "current_worker_phone": 798812474444,
         "cost_manufacturing": 3000,
         "cost_painting": 2000,
         "cost_finishing": 1500,
@@ -274,7 +320,7 @@ ___
             }]
     }
 
-Ответ в случае успеха:
+Ответ:
 
     {
         "message": "Order added"
@@ -294,7 +340,7 @@ ___
         "id": 1
     }
 
-Пример ответа в случае успеха:
+Пример ответа:
 
     {
         "message": "Order deleted"
@@ -312,7 +358,7 @@ ___
     http://fwqqq-backend.ddns.net:1323/api/auth/GetOrders
     
 Описание:
-Взвращает список всех заказов. Метод Get.
+Взвращает список всех незавершенных заказов. Метод Get.
 
 
 Пример ответа:
@@ -320,24 +366,31 @@ ___
     {
         "orders": [
             {
-                "ID": 1,
-                "Date": "2020-06-02T22:18:31.315815+03:00",
+                "id": 1,
+                "title": "Title",
+                "Date": "2020-06-23T00:23:46.510692+03:00",
                 "status": {
-                    "data_office": "0001-01-01T00:00:00Z",
-                    "data_manufacturing": "0001-01-01T00:00:00Z",
-                    "data_grinding  ": "0001-01-01T00:00:00Z",
-                    "data_printing  ": "0001-01-01T00:00:00Z",
+                    "data_office": "2020-06-23T00:23:46.510627784+03:00",
+                    "data_manufacturing": "2020-06-23T00:24:19.322405688+03:00",
+                    "data_grinding": "0001-01-01T00:00:00Z",
+                    "data_printing": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
                     "status_office": true,
-                    "status_manufacturing": false,
+                    "status_manufacturing": true,
                     "status_grinding": false,
                     "status_printing": false,
                     "status_ready": false
                 },
+                "client_id": 0,
                 "client_initials": "Clientov A.V.",
                 "client_phone": 79888563211,
-                "current_worker_initials": "Ivanon I. I.",
-                "current_worker_phone": 7988121212,
+                "current_worker_id": 2,
+                "current_worker_initials": "Иванов D. И.",
+                "current_worker_phone": 8988879400000,
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree",
                 "cost_manufacturing": 3000,
                 "cost_painting": 2000,
                 "cost_finishing": 1500,
@@ -347,21 +400,13 @@ ___
                         "title": "Some Title ",
                         "height": 12,
                         "width": 0,
-                        "filenka": "filenka",
-                        "color": "",
-                        "patina": "",
-                        "fasad_article": "",
-                        "material": ""
+                        "filenka": "filenka"
                     },
                     {
                         "title": "Some Comment2",
                         "height": 13,
                         "width": 0,
-                        "filenka": "panel2",
-                        "color": "",
-                        "patina": "",
-                        "fasad_article": "",
-                        "material": ""
+                        "filenka": "panel2"
                     }
                 ]
             }
@@ -408,12 +453,14 @@ ___
     fwqqq-backend.ddns.net:1323/api/auth/NextStatus
     
 Описание:
-Устанавливает значение следующего статуса в `true` и устанавливает текущее время для данного статуса, по id заказа. Метод Post.
+Устанавливает значение следующего статуса в `true` и устанавливает текущее время для данного статуса. Устанавливает нового работника заказа. Метод Post. При использовании данного метода в лог запишутся изменения в заказе, например: "Заказ переведен на этап manufacturing. Назначенный работник: Иванов И. И."
 Пример тела запроса:
 
     {
-        "id": 1
+        "order_id": 1,
+        "new_worker_id": 2
     }
+
 
 Возвращает текущий статус заказа. Пример ответа:
 
@@ -454,6 +501,131 @@ ___
 
 ---
 
+### EditOrder
+    http://fwqqq-backend.ddns.net:1323/api/auth/EditOrder
+    
+Описание:
+Редактирование заказа. Метод схож с NewOrder, только в данном случе необходимо передать еще и id заказа который подлежит редактированию. Метод Post.
+Данный метод требует авторизацию через bearer token (токен менеджера). При выполнении данного метода все изменения будут записаны в лог, по токену будет определен менеджер, совершивший изменения, что также будет зафиксировано в логе.
+Пример тела запроса:
+
+    {
+        "id": 1,
+        "status": {
+            "status_office": true,
+            "status_manufacturing": false,
+            "status_grinding": false,
+            "status_ready": false
+        },
+        "title": "i change it",
+        "client_id": 0,
+        "client_initials": "Clientov A.V.",
+        "client_phone" : 79888563211,
+        "current_worker_id": 2,
+        "current_worker_initials": "Ivanon I. I.",
+        "current_worker_phone": 798812474444,
+        "cost_manufacturing": 3000,
+        "cost_painting": 2000,
+        "cost_finishing": 1500,
+        "cost_full": 7500,
+        "color": "red",
+        "patina": "patina",
+        "fasad_article": "SomeArticle",
+        "material": "tree", 
+        "params": [
+            {
+                "title": "HH",
+                "height": 12,
+                "weight": 18,
+                "filenka": "filenka2"
+            },
+            {
+                "title": "Some Comment2",
+                "height": 13,
+                "weight": 1,
+                "filenka": "h"               
+            }]
+    }
+
+Пример ответа:
+
+    {
+        "message": "OK"
+    }
+
+Пример ответа если неправельный или просроченный токен:
+
+    {
+        "message": "invalid or expired jwt"
+    }
+
+---
+
+### GetOrderAllChanges
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetOrderAllChanges
+    
+Описание:
+Возвращает все изменения, которые были совершены над заказом (по id заказа). Метод Post.
+
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+
+Пример ответа:
+
+    {
+        "changes": [
+            {
+                "ID": 1,
+                "order_id": 1,
+                "Date": "2020-06-23T00:24:19.322464+03:00",
+                "manager_id": 0,
+                "initials": "",
+                "changes": "Заказ переведен на этап manufacturing. Назначенный работник: Иванов D. И."
+            },
+            {
+                "ID": 2,
+                "order_id": 1,
+                "Date": "2020-06-23T01:03:38.340254+03:00",
+                "manager_id": 1,
+                "initials": "Mr Manager",
+                "changes": "Изменено Title с Title на i change it. Изменено StatusManufacturing с true на false. Изменено Комментарий к параметрам с Some Title  на HH."
+            }
+        ]
+    }
+
+---
+
+### GetOrderLastChanges
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetOrderLastChanges
+    
+Описание:
+Возвращает последнее изменение, которое было совершено над заказом (по id заказа). Метод Post.
+
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+
+Пример ответа:
+
+    {
+        "ID": 2,
+        "order_id": 1,
+        "Date": "2020-06-23T01:03:38.340254+03:00",
+        "manager_id": 1,
+        "initials": "Mr Manager",
+        "changes": "Изменено Title с Title на i change it. Изменено StatusManufacturing с true на false. Изменено Комментарий к параметрам с Some Title  на HH."
+    }
+
+---
+
+## Работа с прайс листами
 ### GetPriceList
     fwqqq-backend.ddns.net:1323/api/auth/GetPriceList
     
@@ -587,21 +759,23 @@ ___
         "workers": [
             {
                 "ID": 1,
-                "uuid": "e87016e5-85fb-43de-a675-5f1302701cfe",
-                "phone": 898887947477,
+                "uuid": "7af7b074-afa0-4e42-a68d-1495b8042fe5",
+                "CurrentBalance": 0,
+                "phone": 8988879409999,
                 "pass": "qwerty1",
-                "initials": "Worker1",
+                "initials": "Иванов F. И.",
                 "carpenter": false,
                 "grinder": false,
                 "painter": false,
                 "collector": false
             },
             {
-                "ID": 3,
-                "uuid": "559fe949-167d-47fa-a112-b71834292693",
-                "phone": 898887947472,
+                "ID": 2,
+                "uuid": "9825fe4c-4732-429f-aa8b-7f5f0b64b69f",
+                "CurrentBalance": 0,
+                "phone": 8988879400000,
                 "pass": "qwerty1",
-                "initials": "Worker2",
+                "initials": "Иванов D. И.",
                 "carpenter": false,
                 "grinder": false,
                 "painter": false,
@@ -636,64 +810,99 @@ ___
 
 ---
 
-### GetWorkerOrders
-    http://fwqqq-backend.ddns.net:1323/api/auth/GetWorkerOrders
+### GetWorkerCurrentOrders
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetWorkerCurrentOrders
     
 Описание:
-Возвращает текущие заказы работника  по его номеру телефона. Метод Post.
+Возвращает текущие заказы работника  по его id. Метод Post.
 Пример тела запроса:
 
     {
-        "current_worker_phone": 7988121212
+        "id": 1
     }
 
-Пример ответа в случае успеха:
+Пример ответа:
 
     {
         "orders": [
             {
-                "ID": 26,
-                "title": "qwe",
-                "Date": "2020-06-11T11:07:01.029196+03:00",
+                "id": 1,
+                "title": "Title",
+                "Date": "2020-06-23T00:23:46.510692+03:00",
                 "status": {
-                    "data_office": "2020-06-11T11:07:01.028498471+03:00",
-                    "data_manufacturing": "0001-01-01T00:00:00Z",
+                    "data_office": "2020-06-23T00:23:46.510627784+03:00",
+                    "data_manufacturing": "2020-06-23T00:24:19.322405688+03:00",
                     "data_grinding": "0001-01-01T00:00:00Z",
                     "data_printing": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
                     "status_office": true,
-                    "status_manufacturing": false,
+                    "status_manufacturing": true,
                     "status_grinding": false,
                     "status_printing": false,
                     "status_ready": false
                 },
-                "client_initials": "qwe",
-                "client_phone": 0,
-                "current_worker_initials": "Попов Петр",
-                "current_worker_phone": 7988121212,
-                "color": "qwwe",
-                "patina": "qwe",
-                "fasad_article": "",
-                "material": "МДФ-16",
-                "cost_manufacturing": 1,
-                "cost_painting": 1,
-                "cost_finishing": 1,
-                "cost_full": 1,
+                "client_id": 0,
+                "client_initials": "Clientov A.V.",
+                "client_phone": 79888563211,
+                "current_worker_id": 2,
+                "current_worker_initials": "Иванов D. И.",
+                "current_worker_phone": 8988879400000,
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree",
+                "cost_manufacturing": 3000,
+                "cost_painting": 2000,
+                "cost_finishing": 1500,
+                "cost_full": 7500,
                 "params": [
                     {
-                        "title": "Some Title or comment",
+                        "title": "Some Title ",
                         "height": 12,
-                        "width": 15,
-                        "filenka": "filenka lalala"
+                        "width": 0,
+                        "filenka": "filenka"
+                    },
+                    {
+                        "title": "Some Comment2",
+                        "height": 13,
+                        "width": 0,
+                        "filenka": "panel2"
                     }
                 ]
-            },
+            }
+        ]
+    }
+
+Пример ответа если ничего не найденно:
+
+    {
+        "orders": null
+    }
+
+---
+
+### GetWorkerOldOrders
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetWorkerOldOrders
+    
+Описание:
+Возвращает завершенные заказы работника  по его id. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Пример ответа:
+
+    {
+        "saved_orders": [
             {
-                "ID": 32,
-                "title": "12",
-                "Date": "2020-06-11T12:36:55.058282+03:00",
+                "ID": 1,
+                "order_id": 1,
+                "title": "Title",
+                "Date": "2020-06-23T00:23:46.510692+03:00",
                 "status": {
-                    "data_office": "2020-06-11T12:36:55.057564962+03:00",
+                    "data_office": "2020-06-23T00:23:46.510627784+03:00",
                     "data_manufacturing": "0001-01-01T00:00:00Z",
                     "data_grinding": "0001-01-01T00:00:00Z",
                     "data_printing": "0001-01-01T00:00:00Z",
@@ -704,61 +913,32 @@ ___
                     "status_printing": false,
                     "status_ready": false
                 },
-                "client_initials": "123",
-                "client_phone": 123,
-                "current_worker_initials": "Попов Петр",
-                "current_worker_phone": 7988121212,
-                "color": "123",
-                "patina": "12",
-                "fasad_article": "",
-                "material": "МДФ-16",
-                "cost_manufacturing": 1,
-                "cost_painting": 1,
-                "cost_finishing": 1,
-                "cost_full": 1,
+                "ClientID": 0,
+                "client_initials": "Clientov A.V.",
+                "client_phone": 79888563211,
+                "CurrentWorkerID": 1,
+                "current_worker_initials": "Иванов F. И.",
+                "current_worker_phone": 8988879409999,
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree",
+                "cost_manufacturing": 3000,
+                "cost_painting": 2000,
+                "cost_finishing": 1500,
+                "cost_full": 7500,
                 "params": [
                     {
-                        "title": "Some Title or comment",
+                        "title": "Some Title ",
                         "height": 12,
-                        "width": 15,
-                        "filenka": "filenka lalala"
-                    }
-                ]
-            },
-            {
-                "ID": 33,
-                "title": "123",
-                "Date": "2020-06-11T13:10:21.917682+03:00",
-                "status": {
-                    "data_office": "2020-06-11T13:10:21.917146224+03:00",
-                    "data_manufacturing": "0001-01-01T00:00:00Z",
-                    "data_grinding": "0001-01-01T00:00:00Z",
-                    "data_printing": "0001-01-01T00:00:00Z",
-                    "data_ready": "0001-01-01T00:00:00Z",
-                    "status_office": true,
-                    "status_manufacturing": false,
-                    "status_grinding": false,
-                    "status_printing": false,
-                    "status_ready": false
-                },
-                "client_initials": "123",
-                "client_phone": 123,
-                "current_worker_initials": "Попов Петр",
-                "current_worker_phone": 7988121212,
-                "color": "123",
-                "patina": "123",
-                "fasad_article": "",
-                "material": "МДФ-16",
-                "cost_manufacturing": 1,
-                "cost_painting": 1,
-                "cost_finishing": 1,
-                "cost_full": 1,
-                "params": [
+                        "width": 0,
+                        "filenka": "filenka"
+                    },
                     {
-                        "title": "Some Title or comment",
-                        "height": 12,
-                        "width": 15,
-                        "filenka": "filenka lalala"
+                        "title": "Some Comment2",
+                        "height": 13,
+                        "width": 0,
+                        "filenka": "panel2"
                     }
                 ]
             }
@@ -806,13 +986,60 @@ ___
         "id": 1
     }
 
-Пример ответа в случае успеха:
+Пример ответа:
 
     {
         "message": "Manager deleted"
     }
 
 Пример ответа в случае если менеджера с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
+
+---
+
+## Работа с клиентами
+### GetClients
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetClients
+    
+Описание:
+Взвращает список всех зарегистрированных клиентов. Метод Get.
+
+Пример ответа:
+
+    {
+        "clients": [
+            {
+                "ID": 1,
+                "phone": 898887947499,
+                "Password": 426113,
+                "initials": "Мединцев А. С.",
+                "Score": 1
+            }
+        ]
+    }
+
+---
+### DeleteClient
+    http://fwqqq-backend.ddns.net:1323/api/auth/DeleteClient
+    
+Описание:
+Удаляет клиента по его id. Метод Post.
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+Пример ответа:
+
+    {
+        "message": "Client deleted"
+    }
+
+Пример ответа в случае если клиента с таким id несуществует:
 
     {
         "message": "pg: no rows in result set"
