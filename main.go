@@ -76,8 +76,10 @@ func main() {
 	jwtGroup.POST("/GetOrderStatus", h.GetOrderStatus)
 	jwtGroup.POST("/NextStatus", h.NextStatus)
 	jwtGroup.POST("/DropStatus", h.DropStatus)
+	jwtGroup.POST("/GetOrderLastChanges", h.GetOrderLastChanges)
+	jwtGroup.POST("/GetOrderAllChanges", h.GetOrderAllChanges)
 
-	jwtGroup.POST("/EditOrder", h.EditOrder)
+	// jwtGroup.POST("/EditOrder", h.EditOrder)
 
 	// Uploads (www/html/uploads)
 	jwtGroup.POST("/upload", h.Upload)
@@ -95,6 +97,7 @@ func main() {
 	// e.POST("/Login", handlers.Login)
 
 	o.GET("/main", h.TestJwt)
+	o.POST("/EditOrder", h.EditOrder)
 
 	// Start server
 	e.Logger.Fatal(e.Start(configs.Cfg.Server.MainPort))
