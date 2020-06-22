@@ -15,6 +15,7 @@ import (
 func DropModels(c echo.Context) error {
 
 	for _, model := range []interface{}{
+		&models.OrdersChangesLogs{},
 		&models.SavedOrders{},
 		&models.Clients{},
 		&models.PriceList{},
