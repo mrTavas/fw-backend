@@ -11,13 +11,7 @@ import (
 	"github.com/mrTavas/fw-backend/models"
 )
 
-// AddManager add information about Clients
-// json format:
-//{
-//	"phone": 89888794747,
-//	"pass" : "qwerty1 or md5"
-//	"initials": "Ivanon I. I.",
-//}
+// AddManager add information about
 func AddManager(c echo.Context) error {
 
 	var inputJSON models.Managers
