@@ -9,7 +9,7 @@ import (
 	db "github.com/mrTavas/fw-backend/dbconn"
 )
 
-const tokenExpiredTime = 100 // 1 - примерно 10-20 секунд, после токен просрочен
+const tokenExpiredTime = 100000 // 1 - примерно 10-20 секунд, после токен просрочен
 //const tokenExpiredTime = 1440
 const refreshTokenExpiredMinutes = 201600
 const configjwtSec = "mySecret"
