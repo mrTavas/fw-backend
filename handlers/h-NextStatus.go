@@ -77,6 +77,16 @@ func NextStatus(c echo.Context) error {
 	statuses.CurrentWorkerInitials = worker.Initials
 	statuses.CurrentWorkerPhone = worker.Phone
 
+	changes := "Заказ переведен на этап \"" + currentStatus + "\". Назначенный работник: \"" + worker.Initials + "\""
+	// Save Logs
+	err = db.Conn.Insert(&models.OrdersChangesLogs{
+		OrderID: statuses.ID,
+		Changes: changes,
+	})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusOK, err.Error())
+	}
+
 	// Save current order
 	_, err = db.Conn.Model(&statuses).Set("Status = ?, current_worker_id = ?, current_worker_initials = ?, current_worker_phone = ?", statuses.Status, statuses.CurrentWorkerID, statuses.CurrentWorkerInitials, statuses.CurrentWorkerPhone).Where("ID = ?", inputJSON.OrderID).Update()
 	if err != nil {
