@@ -267,8 +267,8 @@ ___
 - `Title` - Название заказа:    
 - `ClientInitials` - Инициалы клиента;
 - `ClientPhone` - Телефон клиента;
-- `CurrentWorkerInitials` - Инициалы текущего работника;
-- `CurrentWorkerPhone` - Телефон текущего работника;
+- `CurrentWorkerInitials` - Инициалы текущего работника (добавятся автоматически по id);
+- `CurrentWorkerPhone` - Телефон текущего работника (добавится автоматически по id);
 - `СostManufacturing` - Цена производства;
 - `CostPainting` - Цена покраски;
 - `CostFinishing` - Цена производства;
