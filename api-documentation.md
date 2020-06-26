@@ -500,7 +500,7 @@ ___
 ---
 
 ### EditOrder
-    http://fwqqq-backend.ddns.net:1323/api/auth/EditOrder
+    http://fwqqq-backend.ddns.net:1323/api/EditOrder
     
 Описание:
 Редактирование заказа. Метод схож с NewOrder, только в данном случе необходимо передать еще и id заказа который подлежит редактированию. Метод Post.
