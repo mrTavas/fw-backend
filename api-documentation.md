@@ -295,8 +295,6 @@ ___
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
         "current_worker_id": 1,
-        "current_worker_initials": "Ivanon I. I.",
-        "current_worker_phone": 798812474444,
         "cost_manufacturing": 3000,
         "cost_painting": 2000,
         "cost_finishing": 1500,
