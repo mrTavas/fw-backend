@@ -28,15 +28,34 @@ func DropStatus(c echo.Context) error {
 	}
 
 	// Get current status
+	statuses.Status.StatusOfficeStart = false
 
-	statuses.Status.StatusManufacturing = false
-	statuses.Status.StatusGrinding = false
-	statuses.Status.StatusPrinting = false
+	statuses.Status.StatusManufacturingStart = false
+	statuses.Status.StatusManufacturingEnd = false
+
+	statuses.Status.StatusGrindingStart = false
+	statuses.Status.StatusGrindingEnd = false
+
+	statuses.Status.StatusPrintingStart = false
+	statuses.Status.StatusPrintingEnd = false
+
+	statuses.Status.StatusCollectingStart = false
+	statuses.Status.StatusCollectingEnd = false
+
 	statuses.Status.StatusReady = false
 
-	statuses.Status.DataManufacturing, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
-	statuses.Status.DataGrinding, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
-	statuses.Status.DataPrinting, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataManufacturingStart, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataManufacturingEnd, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+
+	statuses.Status.DataGrindingStart, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataGrindingEnd, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+
+	statuses.Status.DataPrintingStart, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataPrintingEnd, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+
+	statuses.Status.DataCollectingStart, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+	statuses.Status.DataCollectingEnd, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
+
 	statuses.Status.DataReady, _ = time.Parse("0001-01-01T00:00:00Z", "0001-01-01T00:00:00Z")
 
 	_, err = db.Conn.Model(&statuses).Set("Status = ?", statuses.Status).Where("ID = ?", inputJSON.ID).Update()
