@@ -263,12 +263,12 @@ ___
 - `ClientID` - id клиента (если клиент не зарегистрирован передавать client_id = 0);
 - `ClientInitials` - инициалы клиента (передавать если client_id = 0);
 - `ClientPhone` - телефон клиента (передавать если client_id = 0);
-- `WorkerID` - id работника (инициалы и телефон работника автоматически добавятся в заказ);
+- `CurrentWorkerID` - id работника (инициалы и телефон работника автоматически добавятся в заказ);
 - `Title` - Название заказа:    
 - `ClientInitials` - Инициалы клиента;
 - `ClientPhone` - Телефон клиента;
-- `CurrentWorkerInitials` - Инициалы текущего работника;
-- `CurrentWorkerPhone` - Телефон текущего работника;
+- `CurrentWorkerInitials` - Инициалы текущего работника (добавятся автоматически по id);
+- `CurrentWorkerPhone` - Телефон текущего работника (добавится автоматически по id);
 - `СostManufacturing` - Цена производства;
 - `CostPainting` - Цена покраски;
 - `CostFinishing` - Цена производства;
@@ -295,8 +295,6 @@ ___
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
         "current_worker_id": 1,
-        "current_worker_initials": "Ivanon I. I.",
-        "current_worker_phone": 798812474444,
         "cost_manufacturing": 3000,
         "cost_painting": 2000,
         "cost_finishing": 1500,
@@ -502,7 +500,7 @@ ___
 ---
 
 ### EditOrder
-    http://fwqqq-backend.ddns.net:1323/api/auth/EditOrder
+    http://fwqqq-backend.ddns.net:1323/api/EditOrder
     
 Описание:
 Редактирование заказа. Метод схож с NewOrder, только в данном случе необходимо передать еще и id заказа который подлежит редактированию. Метод Post.
@@ -698,6 +696,7 @@ ___
     {
         "message": "OK"
     }
+
 
 ---
 
