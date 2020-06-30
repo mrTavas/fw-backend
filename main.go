@@ -63,6 +63,11 @@ func main() {
 	jwtGroup.GET("/GetWorkers", h.GetWorkers)
 	jwtGroup.POST("/GetWorkerCurrentOrders", h.GetWorkerCurrentOrders)
 	jwtGroup.POST("/GetWorkerOldOrders", h.GetWorkerOldOrders)
+	jwtGroup.POST("/EditWorker", h.EditWorker)
+	jwtGroup.GET("/GetAllCarpenters", h.GetAllCarpenters)
+	jwtGroup.GET("/GetAllGrinders", h.GetAllGrinders)
+	jwtGroup.GET("/GetAllPainters", h.GetAllPainters)
+	jwtGroup.GET("/GetAllCollectors", h.GetAllCollectors)
 
 	// Login
 	jwtGroup.POST("/login", h.Login)
@@ -74,10 +79,12 @@ func main() {
 	jwtGroup.GET("/GetOrders", h.GetOrders)
 	jwtGroup.GET("/GetSavedOrders", h.GetSavedOrders)
 	jwtGroup.POST("/GetOrderStatus", h.GetOrderStatus)
-	jwtGroup.POST("/NextStatus", h.NextStatus)
+	//jwtGroup.POST("/NextStatus", h.NextStatus) // deleted
 	jwtGroup.POST("/DropStatus", h.DropStatus)
 	jwtGroup.POST("/GetOrderLastChanges", h.GetOrderLastChanges)
 	jwtGroup.POST("/GetOrderAllChanges", h.GetOrderAllChanges)
+	jwtGroup.POST("/StartStep", h.StartStep)
+	jwtGroup.POST("/EndStep", h.EndStep)
 
 	// jwtGroup.POST("/EditOrder", h.EditOrder)
 
