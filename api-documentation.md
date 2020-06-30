@@ -30,7 +30,9 @@
 
 - [GetOrderStatus](#GetOrderStatus)
 
-- [NextStatus](#NextStatus)
+- [StartStep](#StartStep)
+
+- [EndStep](#EndStep)
 
 - [DropStatus](#DropStatus)
 
@@ -53,13 +55,24 @@
 
 
 ### Работа с работниками:
-- [GetWorkers](#GetWorkers)
 
-- [DeleteWorker](#DeleteWorker)
+- [GetWorkers](#GetWorkers)
 
 - [GetWorkerCurrentOrders](#GetWorkerCurrentOrders)
 
 - [GetWorkerOldOrders](#GetWorkerOldOrders)
+
+- [GetAllCarpenters](#GetAllCarpenters)
+
+- [GetAllGrinders](#GetAllGrinders)
+
+- [GetAllPainters](#GetAllPainters)
+
+- [GetAllCollectors](#GetAllCollectors)
+
+- [EditWorker](#EditWorker)
+
+- [DeleteWorker](#DeleteWorker)
 
 ### Работа с менеджерами:
 - [GetManagers](#GetManagers)
@@ -89,6 +102,7 @@ ___
         "message": "ОШИБКА #42P07 отношение \"workers\" уже существует"
     }
 ---
+
 ### DropModels
     http://fwqqq-backend.ddns.net:1323/DropModels
 
@@ -151,7 +165,7 @@ ___
 - `Phone` - Номер телефона.
 - `Password` - Пароль менеджера (md5).
 - `Initials` - Фамилия и инициалы.
-- `Сarpenter` - Столяр true/false.
+- `Сarpenter` - Столяр (manufacturing) true/false.
 - `Grinder` - Шлифовщик true/false.
 - `Painter` - Маляр true/false.
 - `Collector` - Сборщик true/false.
@@ -251,14 +265,20 @@ ___
     
 Описание:
 Создает новый заказ. Метод Post.
+Структура заказа:
 
 - `ID` - id заказа;
 - `Status` - Статус заказа:
 
-    - `status_office` - Этап оффис;
-    - `status_manufacturing` - Этап производтва;
-    - `status_grinding` - Этап шлифовки;
-    - `status_ready` - Этап готовности.
+    - `status_office_start` - Этап оффис начат (default: true);
+    - `status_office_end` - Этап оффис завершен;
+    - `status_manufacturing_start` - Этап производтва начат;
+    - `status_manufacturing_end` - Этап производтва завершен;
+    - `status_grinding_start` - Этап шлифовки начат;
+    - `status_grinding_end` - Этап шлифовки завершен;
+    - `status_collectind_start` - Этап сборки начат;
+    - `status_collecting_end` - Этап сборки завершен;
+    - `status_ready` - Заказ завершен.
 
 - `ClientID` - id клиента (если клиент не зарегистрирован передавать client_id = 0);
 - `ClientInitials` - инициалы клиента (передавать если client_id = 0);
@@ -284,12 +304,6 @@ ___
 Пример тела запроса:
 
     {
-        "status": {
-            "status_office": true,
-            "status_manufacturing": false,
-            "status_grinding": false,
-            "status_ready": false
-        },
         "title": "Title",
         "client_id": 0,
         "client_initials": "Clientov A.V.",
@@ -366,33 +380,45 @@ ___
             {
                 "id": 1,
                 "title": "Title",
-                "Date": "2020-06-23T00:23:46.510692+03:00",
+                "Date": "2020-06-30T17:33:32.59735+03:00",
                 "status": {
-                    "data_office": "2020-06-23T00:23:46.510627784+03:00",
-                    "data_manufacturing": "2020-06-23T00:24:19.322405688+03:00",
-                    "data_grinding": "0001-01-01T00:00:00Z",
-                    "data_printing": "0001-01-01T00:00:00Z",
+                    "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+                    "data_office_end": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_start": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_end": "0001-01-01T00:00:00Z",
+                    "data_grinding_start": "0001-01-01T00:00:00Z",
+                    "data_grinding_end": "0001-01-01T00:00:00Z",
+                    "data_printing_start": "0001-01-01T00:00:00Z",
+                    "data_printing_end": "0001-01-01T00:00:00Z",
+                    "data_collecting_start": "0001-01-01T00:00:00Z",
+                    "data_collecting_end": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
-                    "status_office": true,
-                    "status_manufacturing": true,
-                    "status_grinding": false,
-                    "status_printing": false,
+                    "status_office_start": true,
+                    "status_office_end": false,
+                    "status_manufacturing_start": false,
+                    "status_manufacturing_end": false,
+                    "status_grinding_start": false,
+                    "status_grinding_end": false,
+                    "status_printing_start": false,
+                    "status_printing_end": false,
+                    "status_collecting_start": false,
+                    "status_collecting_end": false,
                     "status_ready": false
                 },
                 "client_id": 0,
                 "client_initials": "Clientov A.V.",
                 "client_phone": 79888563211,
-                "current_worker_id": 2,
-                "current_worker_initials": "Иванов D. И.",
-                "current_worker_phone": 8988879400000,
+                "current_worker_id": 1,
+                "current_worker_initials": " Плотный П. В.",
+                "current_worker_phone": 8988879411111,
                 "color": "red",
                 "patina": "patina",
                 "fasad_article": "SomeArticle",
                 "material": "tree",
-                "cost_manufacturing": 3000,
-                "cost_painting": 2000,
-                "cost_finishing": 1500,
-                "cost_full": 7500,
+                "cost_carpenter": 3000,
+                "cost_grinder": 2000,
+                "cost_painter": 1500,
+                "cost_collector": 2000,
                 "params": [
                     {
                         "title": "Some Title ",
@@ -427,15 +453,27 @@ ___
 Пример ответа:
 
     {
-        "data_office": "0001-01-01T00:00:00Z",
-        "data_manufacturing": "0001-01-01T00:00:00Z",
-        "data_grinding  ": "0001-01-01T00:00:00Z",
-        "data_printing  ": "0001-01-01T00:00:00Z",
+        "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+        "data_office_end": "0001-01-01T00:00:00Z",
+        "data_manufacturing_start": "0001-01-01T00:00:00Z",
+        "data_manufacturing_end": "0001-01-01T00:00:00Z",
+        "data_grinding_start": "0001-01-01T00:00:00Z",
+        "data_grinding_end": "0001-01-01T00:00:00Z",
+        "data_printing_start": "0001-01-01T00:00:00Z",
+        "data_printing_end": "0001-01-01T00:00:00Z",
+        "data_collecting_start": "0001-01-01T00:00:00Z",
+        "data_collecting_end": "0001-01-01T00:00:00Z",
         "data_ready": "0001-01-01T00:00:00Z",
-        "status_office": true,
-        "status_manufacturing": false,
-        "status_grinding": false,
-        "status_printing": false,
+        "status_office_start": true,
+        "status_office_end": false,
+        "status_manufacturing_start": false,
+        "status_manufacturing_end": false,
+        "status_grinding_start": false,
+        "status_grinding_end": false,
+        "status_printing_start": false,
+        "status_printing_end": false,
+        "status_collecting_start": false,
+        "status_collecting_end": false,
         "status_ready": false
     }
 
@@ -447,11 +485,11 @@ ___
 
 ---
 
-### NextStatus
-    fwqqq-backend.ddns.net:1323/api/auth/NextStatus
+### StartStep
+    fwqqq-backend.ddns.net:1323/api/auth/StartStep
     
 Описание:
-Устанавливает значение следующего статуса в `true` и устанавливает текущее время для данного статуса. Устанавливает нового работника заказа. Метод Post. При использовании данного метода в лог запишутся изменения в заказе, например: "Заказ переведен на этап manufacturing. Назначенный работник: Иванов И. И."
+Устанавливает значение следующего статуса заказа с тегом _start  в `true` и устанавливает текущее время для данного статуса. Устанавливает нового работника заказа. Метод Post. При использовании данного метода в лог запишутся изменения в заказе, например: "Заказ начал этап manufacturing. Назначенный работник: Иванов И. И."
 Пример тела запроса:
 
     {
@@ -460,10 +498,48 @@ ___
     }
 
 
-Возвращает текущий статус заказа. Пример ответа:
+Пример ответа:
 
     {
-        "message": "ready"
+        "message": "Начался этап manufacturing."
+    }
+
+Пример ответа в случая если предыдущий этап еще не завершен:
+
+    {
+        "message": "Есть незавершенные этапы."
+    }
+
+Пример ответа в случае если заказа с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
+    }
+
+---
+
+### EndStep
+    fwqqq-backend.ddns.net:1323/api/auth/EndStep
+    
+Описание:
+Устанавливает значение следующего статуса заказа с тегом _end  в `true` и устанавливает текущее время для данного статуса. Добавляет к балансу работника соответвующее значение. Сохраняет в таблицу сохраненых стадий. Метод Post. При использовании данного метода в лог запишутся изменения в заказе, например: "Заказ завершил этап manufacturing"
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+
+Пример ответа:
+
+    {
+        "message": "Этап manufacturing завершился."
+    }
+
+Пример ответа в случая если нет начатых этапов:
+
+    {
+        "message": "Нет начатых этапов."
     }
 
 Пример ответа в случае если заказа с таким id несуществует:
@@ -478,7 +554,7 @@ ___
     fwqqq-backend.ddns.net:1323/api/auth/DropStatus
     
 Описание:
-Устанавливает значения статусов заказа в `false` (все кроме `status_office`) и даты (все кроме `data_office`) в начальные значения, по id заказа. Метод Post.
+Устанавливает значения статусов заказа в `false` (все кроме `status_office_start`) и даты (все кроме `data_office_start`) в начальные значения, по id заказа. Метод Post.
 Пример тела запроса:
 
     {
@@ -507,42 +583,63 @@ ___
 Данный метод требует авторизацию через bearer token (токен менеджера). При выполнении данного метода все изменения будут записаны в лог, по токену будет определен менеджер, совершивший изменения, что также будет зафиксировано в логе.
 Пример тела запроса:
 
+
     {
         "id": 1,
+        "title": "Title",
+        "Date": "2020-06-30T17:33:32.59735+03:00",
         "status": {
-            "status_office": true,
-            "status_manufacturing": false,
-            "status_grinding": false,
+            "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+            "data_office_end": "0001-01-01T00:00:00Z",
+            "data_manufacturing_start": "0001-01-01T00:00:00Z",
+            "data_manufacturing_end": "0001-01-01T00:00:00Z",
+            "data_grinding_start": "0001-01-01T00:00:00Z",
+            "data_grinding_end": "0001-01-01T00:00:00Z",
+            "data_printing_start": "0001-01-01T00:00:00Z",
+            "data_printing_end": "0001-01-01T00:00:00Z",
+            "data_collecting_start": "0001-01-01T00:00:00Z",
+            "data_collecting_end": "0001-01-01T00:00:00Z",
+            "data_ready": "0001-01-01T00:00:00Z",
+            "status_office_start": true,
+            "status_office_end": false,
+            "status_manufacturing_start": false,
+            "status_manufacturing_end": false,
+            "status_grinding_start": false,
+            "status_grinding_end": false,
+            "status_printing_start": false,
+            "status_printing_end": false,
+            "status_collecting_start": false,
+            "status_collecting_end": false,
             "status_ready": false
         },
-        "title": "i change it",
         "client_id": 0,
         "client_initials": "Clientov A.V.",
-        "client_phone" : 79888563211,
-        "current_worker_id": 2,
-        "current_worker_initials": "Ivanon I. I.",
-        "current_worker_phone": 798812474444,
-        "cost_manufacturing": 3000,
-        "cost_painting": 2000,
-        "cost_finishing": 1500,
-        "cost_full": 7500,
+        "client_phone": 79888563211,
+        "current_worker_id": 1,
+        "current_worker_initials": " Плотный П. В.",
+        "current_worker_phone": 8988879411111,
         "color": "red",
         "patina": "patina",
         "fasad_article": "SomeArticle",
-        "material": "tree", 
+        "material": "tree",
+        "cost_carpenter": 3000,
+        "cost_grinder": 2000,
+        "cost_painter": 1500,
+        "cost_collector": 2000,
         "params": [
             {
-                "title": "HH",
+                "title": "Some Title ",
                 "height": 12,
-                "weight": 18,
-                "filenka": "filenka2"
+                "width": 0,
+                "filenka": "filenka"
             },
             {
                 "title": "Some Comment2",
                 "height": 13,
-                "weight": 1,
-                "filenka": "h"               
-            }]
+                "width": 0,
+                "filenka": "panel2"
+            }
+        ]
     }
 
 Пример ответа:
@@ -784,6 +881,157 @@ ___
     }
 
 ---
+
+### GetAllCarpenters
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetAllCarpenters
+    
+Описание:
+Взвращает список всех работников плотников (на этап manufacturing). Метод Get.
+
+Пример ответа:
+
+    {
+        "workers": [
+            {
+                "ID": 2,
+                "uuid": "cce66873-c0ae-4dd6-b0eb-53a6883c615f",
+                "CurrentBalance": 0,
+                "phone": 89888794111111,
+                "pass": "qwerty1",
+                "initials": " Плотный П. В.2",
+                "carpenter": true,
+                "grinder": false,
+                "painter": false,
+                "collector": false
+            },
+            {
+                "ID": 1,
+                "uuid": "43d2fb58-fe73-484f-bce5-a46c74f43ebf",
+                "CurrentBalance": 3000,
+                "phone": 8988879411111,
+                "pass": "qwerty1",
+                "initials": " Плотный П. В.",
+                "carpenter": true,
+                "grinder": false,
+                "painter": false,
+                "collector": false
+            }
+        ]
+    }
+
+---
+
+### GetAllGrinders
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetAllGrinders
+    
+Описание:
+Взвращает список всех работников шлифовщиков (на этап grinding). Метод Get.
+
+Пример ответа:
+
+    {
+        "workers": [
+            {
+                "ID": 1,
+                "uuid": "43d2fb58-fe73-484f-bce5-a46c74f43ebf",
+                "CurrentBalance": 0,
+                "phone": 8988879411111,
+                "pass": "qwerty1",
+                "initials": " Плотный П. В.",
+                "carpenter": true,
+                "grinder": true,
+                "painter": false,
+                "collector": false
+            }
+        ]
+    }
+
+---
+
+### GetAllPainters
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetAllPainters
+    
+Описание:
+Взвращает список всех работников маляров (на этап painting). Метод Get.
+
+Пример ответа:
+
+    {
+        "workers": [
+            {
+                "ID": 1,
+                "uuid": "43d2fb58-fe73-484f-bce5-a46c74f43ebf",
+                "CurrentBalance": 0,
+                "phone": 8988879411111,
+                "pass": "qwerty1",
+                "initials": " Плотный П. В.",
+                "carpenter": false,
+                "grinder": false,
+                "painter": true,
+                "collector": false
+            }
+        ]
+    }
+
+---
+
+### GetAllCollectors
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetAllCollectors
+    
+Описание:
+Взвращает список всех работников сборщиков (на этап collectind). Метод Get.
+
+Пример ответа:
+
+    {
+        "workers": [
+            {
+                "ID": 1,
+                "uuid": "43d2fb58-fe73-484f-bce5-a46c74f43ebf",
+                "CurrentBalance": 0,
+                "phone": 8988879411111,
+                "pass": "qwerty1",
+                "initials": " Плотный П. В.",
+                "carpenter": false,
+                "grinder": false,
+                "painter": false,
+                "collector": true
+            }
+        ]
+    }
+
+---
+
+### EditOrder
+    http://fwqqq-backend.ddns.net:1323/api/auth/EditWorker
+    
+Описание:
+Редактирование работника. Метод схож с NewWorker, только в данном случе необходимо передать еще и id работника который подлежит редактированию. Метод Post. Если какой-либо из статуссов (carpenter, grinder, painter или collector) не передается, то он установится в `false`.
+
+Пример тела запроса:
+
+
+    {
+        "ID": 1,
+        "uuid": "43d2fb58-fe73-484f-bce5-a46c74f43ebf",
+        "CurrentBalance": 0,
+        "phone": 8988879411111,
+        "pass": "qwerty1",
+        "initials": " Плотный П. В.",
+        "carpenter": true,
+        "grinder": true,
+        "painter": false,
+        "collector": false
+    }
+
+Пример ответа:
+
+    {
+        "message": "OK"
+    }
+
+---
+
 ### DeleteWorker
     http://fwqqq-backend.ddns.net:1323/api/auth/DeleteWorker
     
@@ -827,33 +1075,45 @@ ___
             {
                 "id": 1,
                 "title": "Title",
-                "Date": "2020-06-23T00:23:46.510692+03:00",
+                "Date": "2020-06-30T17:33:32.59735+03:00",
                 "status": {
-                    "data_office": "2020-06-23T00:23:46.510627784+03:00",
-                    "data_manufacturing": "2020-06-23T00:24:19.322405688+03:00",
-                    "data_grinding": "0001-01-01T00:00:00Z",
-                    "data_printing": "0001-01-01T00:00:00Z",
+                    "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+                    "data_office_end": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_start": "2020-06-30T17:44:16.847558907+03:00",
+                    "data_manufacturing_end": "0001-01-01T00:00:00Z",
+                    "data_grinding_start": "0001-01-01T00:00:00Z",
+                    "data_grinding_end": "0001-01-01T00:00:00Z",
+                    "data_printing_start": "0001-01-01T00:00:00Z",
+                    "data_printing_end": "0001-01-01T00:00:00Z",
+                    "data_collecting_start": "0001-01-01T00:00:00Z",
+                    "data_collecting_end": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
-                    "status_office": true,
-                    "status_manufacturing": true,
-                    "status_grinding": false,
-                    "status_printing": false,
+                    "status_office_start": true,
+                    "status_office_end": false,
+                    "status_manufacturing_start": false,
+                    "status_manufacturing_end": false,
+                    "status_grinding_start": false,
+                    "status_grinding_end": false,
+                    "status_printing_start": false,
+                    "status_printing_end": false,
+                    "status_collecting_start": false,
+                    "status_collecting_end": false,
                     "status_ready": false
                 },
                 "client_id": 0,
                 "client_initials": "Clientov A.V.",
                 "client_phone": 79888563211,
-                "current_worker_id": 2,
-                "current_worker_initials": "Иванов D. И.",
-                "current_worker_phone": 8988879400000,
+                "current_worker_id": 1,
+                "current_worker_initials": " Плотный П. В.",
+                "current_worker_phone": 8988879411111,
                 "color": "red",
                 "patina": "patina",
                 "fasad_article": "SomeArticle",
                 "material": "tree",
-                "cost_manufacturing": 3000,
-                "cost_painting": 2000,
-                "cost_finishing": 1500,
-                "cost_full": 7500,
+                "cost_carpenter": 3000,
+                "cost_grinder": 2000,
+                "cost_painter": 1500,
+                "cost_collector": 2000,
                 "params": [
                     {
                         "title": "Some Title ",
@@ -899,33 +1159,45 @@ ___
                 "ID": 1,
                 "order_id": 1,
                 "title": "Title",
-                "Date": "2020-06-23T00:23:46.510692+03:00",
+                "Date": "2020-06-30T17:33:32.59735+03:00",
                 "status": {
-                    "data_office": "2020-06-23T00:23:46.510627784+03:00",
-                    "data_manufacturing": "0001-01-01T00:00:00Z",
-                    "data_grinding": "0001-01-01T00:00:00Z",
-                    "data_printing": "0001-01-01T00:00:00Z",
+                    "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+                    "data_office_end": "2020-06-30T17:44:14.56757536+03:00",
+                    "data_manufacturing_start": "2020-06-30T17:44:16.847558907+03:00",
+                    "data_manufacturing_end": "2020-06-30T17:52:09.693244359+03:00",
+                    "data_grinding_start": "0001-01-01T00:00:00Z",
+                    "data_grinding_end": "0001-01-01T00:00:00Z",
+                    "data_printing_start": "0001-01-01T00:00:00Z",
+                    "data_printing_end": "0001-01-01T00:00:00Z",
+                    "data_collecting_start": "0001-01-01T00:00:00Z",
+                    "data_collecting_end": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
-                    "status_office": true,
-                    "status_manufacturing": false,
-                    "status_grinding": false,
-                    "status_printing": false,
+                    "status_office_start": true,
+                    "status_office_end": true,
+                    "status_manufacturing_start": true,
+                    "status_manufacturing_end": true,
+                    "status_grinding_start": false,
+                    "status_grinding_end": false,
+                    "status_printing_start": false,
+                    "status_printing_end": false,
+                    "status_collecting_start": false,
+                    "status_collecting_end": false,
                     "status_ready": false
                 },
-                "ClientID": 0,
+                "current_worker_id": 0,
                 "client_initials": "Clientov A.V.",
                 "client_phone": 79888563211,
                 "CurrentWorkerID": 1,
-                "current_worker_initials": "Иванов F. И.",
-                "current_worker_phone": 8988879409999,
+                "current_worker_initials": " Плотный П. В.",
+                "current_worker_phone": 8988879411111,
                 "color": "red",
                 "patina": "patina",
                 "fasad_article": "SomeArticle",
                 "material": "tree",
-                "cost_manufacturing": 3000,
-                "cost_painting": 2000,
-                "cost_finishing": 1500,
-                "cost_full": 7500,
+                "cost_carpenter": 3000,
+                "cost_grinder": 2000,
+                "cost_painter": 1500,
+                "cost_collector": 2000,
                 "params": [
                     {
                         "title": "Some Title ",
