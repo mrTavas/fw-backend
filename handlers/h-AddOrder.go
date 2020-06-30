@@ -43,8 +43,8 @@ func AddOrder(c echo.Context) error {
 	}
 
 	// Default values
-	inputJSON.Status.StatusOffice = true
-	inputJSON.Status.DataOffice = time.Now()
+	inputJSON.Status.StatusOfficeStart = true
+	inputJSON.Status.DataOfficeStart = time.Now()
 
 	// Add worker by id
 	inputJSON.CurrentWorkerInitials = worker.Initials
@@ -61,10 +61,10 @@ func AddOrder(c echo.Context) error {
 		CurrentWorkerID:       inputJSON.CurrentWorkerID,
 		CurrentWorkerInitials: inputJSON.CurrentWorkerInitials,
 		CurrentWorkerPhone:    inputJSON.CurrentWorkerPhone,
-		CostManufacturing:     inputJSON.CostManufacturing,
-		CostPainting:          inputJSON.CostPainting,
-		CostFinishing:         inputJSON.CostFinishing,
-		CostFull:              inputJSON.CostFull,
+		CostCarpenter:         inputJSON.CostCarpenter,
+		CostGrinder:           inputJSON.CostGrinder,
+		CostPainter:           inputJSON.CostPainter,
+		CostCollector:         inputJSON.CostCollector,
 		Color:                 inputJSON.Color,
 		Patina:                inputJSON.Patina,
 		FasadArticle:          inputJSON.FasadArticle,
