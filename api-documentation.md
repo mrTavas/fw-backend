@@ -1002,7 +1002,7 @@ ___
 
 ---
 
-### EditOrder
+### EditWorker
     http://fwqqq-backend.ddns.net:1323/api/auth/EditWorker
     
 Описание:
