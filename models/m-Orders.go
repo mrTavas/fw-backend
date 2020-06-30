@@ -12,17 +12,39 @@ type OrdersParam struct {
 
 // OrderStatus and Data list for orders
 type OrderStatus struct {
-	DataOffice        time.Time `sql:"default:now()" json:"data_office"`
-	DataManufacturing time.Time `sql:"default:now()" json:"data_manufacturing"`
-	DataGrinding      time.Time `sql:"default:now()" json:"data_grinding"`
-	DataPrinting      time.Time `sql:"default:now()" json:"data_printing"`
-	DataReady         time.Time `sql:"default:now()" json:"data_ready"`
+	DataOfficeStart time.Time `sql:"default:now()" json:"data_office_start"`
+	DataOfficeEnd   time.Time `sql:"default:now()" json:"data_office_end"`
 
-	StatusOffice        bool `sql:",notnull, default:true" json:"status_office"`
-	StatusManufacturing bool `sql:",notnull, default:false" json:"status_manufacturing"`
-	StatusGrinding      bool `sql:",notnull, default:false" json:"status_grinding"`
-	StatusPrinting      bool `sql:",notnull, default:false" json:"status_printing"`
-	StatusReady         bool `sql:",notnull, default:false" json:"status_ready"`
+	DataManufacturingStart time.Time `sql:"default:now()" json:"data_manufacturing_start"`
+	DataManufacturingEnd   time.Time `sql:"default:now()" json:"data_manufacturing_end"`
+
+	DataGrindingStart time.Time `sql:"default:now()" json:"data_grinding_start"`
+	DataGrindingEnd   time.Time `sql:"default:now()" json:"data_grinding_end"`
+
+	DataPrintingStart time.Time `sql:"default:now()" json:"data_printing_start"`
+	DataPrintingEnd   time.Time `sql:"default:now()" json:"data_printing_end"`
+
+	DataCollectingStart time.Time `sql:"default:now()" json:"data_collecting_start"`
+	DataCollectingEnd   time.Time `sql:"default:now()" json:"data_collecting_end"`
+
+	DataReady time.Time `sql:"default:now()" json:"data_ready"`
+
+	StatusOfficeStart bool `sql:",notnull, default:true" json:"status_office_start"`
+	StatusOfficeEnd   bool `sql:",notnull, default:false" json:"status_office_end"`
+
+	StatusManufacturingStart bool `sql:",notnull, default:false" json:"status_manufacturing_start"`
+	StatusManufacturingEnd   bool `sql:",notnull, default:false" json:"status_manufacturing_end"`
+
+	StatusGrindingStart bool `sql:",notnull, default:false" json:"status_grinding_start"`
+	StatusGrindingEnd   bool `sql:",notnull, default:false" json:"status_grinding_end"`
+
+	StatusPrintingStart bool `sql:",notnull, default:false" json:"status_printing_start"`
+	StatusPrintingEnd   bool `sql:",notnull, default:false" json:"status_printing_end"`
+
+	StatusCollectingStart bool `sql:",notnull, default:false" json:"status_collecting_start"`
+	StatusCollectingEnd   bool `sql:",notnull, default:false" json:"status_collecting_end"`
+
+	StatusReady bool `sql:",notnull, default:false" json:"status_ready"`
 }
 
 // Orders Order's table
@@ -36,8 +58,8 @@ type Orders struct {
 	ClientInitials string `sql:",notnull" json:"client_initials"`
 	ClientPhone    int    `json:"client_phone"`
 
-	CurrentWorkerID       int    `sql:",notnull" json:"current_worker_id"`
-	CurrentWorkerInitials string `sql:",notnull" json:"current_worker_initials"`
+	CurrentWorkerID       int    `sql:"default:Null" json:"current_worker_id"`
+	CurrentWorkerInitials string `sql:"default:Null" json:"current_worker_initials"`
 	CurrentWorkerPhone    int    `json:"current_worker_phone"`
 
 	Color        string `json:"color"`
@@ -45,10 +67,10 @@ type Orders struct {
 	FasadArticle string `json:"fasad_article"`
 	Material     string `json:"material"`
 
-	CostManufacturing int `sql:",notnull" json:"cost_manufacturing"`
-	CostPainting      int `sql:",notnull" json:"cost_painting"`
-	CostFinishing     int `sql:",notnull" json:"cost_finishing"`
-	CostFull          int `sql:",notnull" json:"cost_full"`
+	CostCarpenter int `sql:",notnull" json:"cost_carpenter"`
+	CostGrinder   int `sql:",notnull" json:"cost_grinder"`
+	CostPainter   int `sql:",notnull" json:"cost_painter"`
+	CostCollector int `sql:",notnull" json:"cost_collector"`
 
 	Params []OrdersParam `json:"params"`
 }
@@ -61,12 +83,12 @@ type SavedOrders struct {
 	Date    time.Time   `sql:"default:now()"`
 	Status  OrderStatus `json:"status"`
 
-	ClientID       int    `sql:"default:Null"`
+	ClientID       int    `sql:"default:Null" json:"current_worker_id"`
 	ClientInitials string `sql:",notnull" json:"client_initials"`
 	ClientPhone    int    `json:"client_phone"`
 
-	CurrentWorkerID       int    `sql:",notnull"`
-	CurrentWorkerInitials string `sql:",notnull" json:"current_worker_initials"`
+	CurrentWorkerID       int    `sql:"default:Null"`
+	CurrentWorkerInitials string `sql:"default:Null" json:"current_worker_initials"`
 	CurrentWorkerPhone    int    `json:"current_worker_phone"`
 
 	Color        string `json:"color"`
@@ -74,10 +96,10 @@ type SavedOrders struct {
 	FasadArticle string `json:"fasad_article"`
 	Material     string `json:"material"`
 
-	CostManufacturing int `sql:",notnull" json:"cost_manufacturing"`
-	CostPainting      int `sql:",notnull" json:"cost_painting"`
-	CostFinishing     int `sql:",notnull" json:"cost_finishing"`
-	CostFull          int `sql:",notnull" json:"cost_full"`
+	CostCarpenter int `sql:",notnull" json:"cost_carpenter"`
+	CostGrinder   int `sql:",notnull" json:"cost_grinder"`
+	CostPainter   int `sql:",notnull" json:"cost_painter"`
+	CostCollector int `sql:",notnull" json:"cost_collector"`
 
 	Params []OrdersParam `json:"params"`
 }
