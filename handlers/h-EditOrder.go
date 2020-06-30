@@ -72,43 +72,54 @@ func EditOrder(c echo.Context) error {
 		}
 	}
 
-	if inputJSON.Status.DataOffice != order.Status.DataOffice {
+	if inputJSON.Status.DataOfficeStart != order.Status.DataOfficeStart {
 
-		if inputJSON.Status.DataOffice.String() != "0001-01-01 00:00:00 +0000 UTC" {
-			changes += "Изменено \"DataOffice\" с \"" + order.Status.DataOffice.String() + "\" на \"" + inputJSON.Status.DataOffice.String() + "\". "
+		if inputJSON.Status.DataOfficeStart.String() != "0001-01-01 00:00:00 +0000 UTC" {
+			changes += "Изменено \"DataOfficeStart\" с \"" + order.Status.DataOfficeStart.String() + "\" на \"" + inputJSON.Status.DataOfficeStart.String() + "\". "
 		} else {
-			inputJSON.Status.DataOffice = order.Status.DataOffice
+			inputJSON.Status.DataOfficeStart = order.Status.DataOfficeStart
 		}
 	}
 
-	if inputJSON.Status.DataManufacturing != order.Status.DataManufacturing {
+	if inputJSON.Status.DataManufacturingStart != order.Status.DataManufacturingStart {
 
-		if inputJSON.Status.DataManufacturing.String() != "0001-01-01 00:00:00 +0000 UTC" {
-			changes += "Изменено \"DataManufacturing\" с \"" + order.Status.DataManufacturing.String() + "\" на \"" + inputJSON.Status.DataManufacturing.String() + "\". "
+		if inputJSON.Status.DataManufacturingStart.String() != "0001-01-01 00:00:00 +0000 UTC" {
+			changes += "Изменено \"DataManufacturingStart\" с \"" + order.Status.DataManufacturingStart.String() + "\" на \"" + inputJSON.Status.DataManufacturingStart.String() + "\". "
 		} else {
-			inputJSON.Status.DataManufacturing = order.Status.DataManufacturing
-		}
-
-	}
-
-	if inputJSON.Status.DataGrinding != order.Status.DataGrinding {
-
-		if inputJSON.Status.DataGrinding.String() != "0001-01-01 00:00:00 +0000 UTC" {
-			changes += "Изменено \"DataGrinding\" с \"" + order.Status.DataGrinding.String() + "\" на \"" + inputJSON.Status.DataGrinding.String() + "\". "
-
-		} else {
-			inputJSON.Status.DataGrinding = order.Status.DataGrinding
+			inputJSON.Status.DataManufacturingStart = order.Status.DataManufacturingStart
 		}
 
 	}
 
-	if inputJSON.Status.DataPrinting != order.Status.DataReady {
+	if inputJSON.Status.DataGrindingStart != order.Status.DataGrindingStart {
 
-		if inputJSON.Status.DataPrinting.String() != "0001-01-01 00:00:00 +0000 UTC" {
-			changes += "Изменено \"DataPrinting\" с \"" + order.Status.DataPrinting.String() + "\" на \"" + inputJSON.Status.DataPrinting.String() + "\". "
+		if inputJSON.Status.DataGrindingStart.String() != "0001-01-01 00:00:00 +0000 UTC" {
+			changes += "Изменено \"DataGrindingStart\" с \"" + order.Status.DataGrindingStart.String() + "\" на \"" + inputJSON.Status.DataGrindingStart.String() + "\". "
 
 		} else {
-			inputJSON.Status.DataPrinting = order.Status.DataPrinting
+			inputJSON.Status.DataGrindingStart = order.Status.DataGrindingStart
+		}
+
+	}
+
+	if inputJSON.Status.DataPrintingStart != order.Status.DataPrintingStart {
+
+		if inputJSON.Status.DataPrintingStart.String() != "0001-01-01 00:00:00 +0000 UTC" {
+			changes += "Изменено \"DataPrintingStart\" с \"" + order.Status.DataPrintingStart.String() + "\" на \"" + inputJSON.Status.DataPrintingStart.String() + "\". "
+
+		} else {
+			inputJSON.Status.DataPrintingStart = order.Status.DataPrintingStart
+		}
+
+	}
+
+	if inputJSON.Status.DataCollectingStart != order.Status.DataCollectingStart {
+
+		if inputJSON.Status.DataCollectingStart.String() != "0001-01-01 00:00:00 +0000 UTC" {
+			changes += "Изменено \"DataCollectingStart\" с \"" + order.Status.DataCollectingStart.String() + "\" на \"" + inputJSON.Status.DataCollectingStart.String() + "\". "
+
+		} else {
+			inputJSON.Status.DataCollectingStart = order.Status.DataCollectingStart
 		}
 
 	}
@@ -124,23 +135,28 @@ func EditOrder(c echo.Context) error {
 
 	}
 
-	if inputJSON.Status.StatusOffice != order.Status.StatusOffice {
-		buff := fmt.Sprintf("Изменено \"StatusOffice\" с \" %v \" на \" %v \". ", order.Status.StatusOffice, inputJSON.Status.StatusOffice)
+	if inputJSON.Status.StatusOfficeStart != order.Status.StatusOfficeStart {
+		buff := fmt.Sprintf("Изменено \"StatusOfficeStart\" с \" %v \" на \" %v \". ", order.Status.StatusOfficeStart, inputJSON.Status.StatusOfficeStart)
 		changes += buff
 	}
 
-	if inputJSON.Status.StatusManufacturing != order.Status.StatusManufacturing {
-		buff := fmt.Sprintf("Изменено \"StatusManufacturing\" с \"%v\" на \"%v\". ", order.Status.StatusManufacturing, inputJSON.Status.StatusManufacturing)
+	if inputJSON.Status.StatusManufacturingStart != order.Status.StatusManufacturingStart {
+		buff := fmt.Sprintf("Изменено \"StatusManufacturingStart\" с \"%v\" на \"%v\". ", order.Status.StatusManufacturingStart, inputJSON.Status.StatusManufacturingStart)
 		changes += buff
 	}
 
-	if inputJSON.Status.StatusGrinding != order.Status.StatusGrinding {
-		buff := fmt.Sprintf("Изменено \"StatusGrinding\" с \"%v\" на \"%v\". ", order.Status.StatusGrinding, inputJSON.Status.StatusGrinding)
+	if inputJSON.Status.StatusGrindingStart != order.Status.StatusGrindingStart {
+		buff := fmt.Sprintf("Изменено \"StatusGrindingStart\" с \"%v\" на \"%v\". ", order.Status.StatusGrindingStart, inputJSON.Status.StatusGrindingStart)
 		changes += buff
 	}
 
-	if inputJSON.Status.StatusPrinting != order.Status.StatusPrinting {
-		buff := fmt.Sprintf("Изменено \"StatusPrinting\" с \"%v\" на \"%v\". ", order.Status.StatusPrinting, inputJSON.Status.StatusPrinting)
+	if inputJSON.Status.StatusPrintingStart != order.Status.StatusPrintingStart {
+		buff := fmt.Sprintf("Изменено \"StatusPrintingStart\" с \"%v\" на \"%v\". ", order.Status.StatusPrintingStart, inputJSON.Status.StatusPrintingStart)
+		changes += buff
+	}
+
+	if inputJSON.Status.StatusCollectingStart != order.Status.StatusCollectingStart {
+		buff := fmt.Sprintf("Изменено \"StatusCollectingStart\" с \"%v\" на \"%v\". ", order.Status.StatusCollectingStart, inputJSON.Status.StatusCollectingStart)
 		changes += buff
 	}
 
@@ -221,39 +237,39 @@ func EditOrder(c echo.Context) error {
 		}
 	}
 
-	if inputJSON.CostManufacturing != order.CostManufacturing {
+	if inputJSON.CostCarpenter != order.CostCarpenter {
 
-		if inputJSON.CostManufacturing != 0 {
-			changes += "Изменена \"Цена производства\" с \"" + strconv.Itoa(order.CostManufacturing) + "\" на \"" + strconv.Itoa(inputJSON.CostManufacturing) + "\". "
+		if inputJSON.CostCarpenter != 0 {
+			changes += "Изменена \"Цена столярных работ\" с \"" + strconv.Itoa(order.CostCarpenter) + "\" на \"" + strconv.Itoa(inputJSON.CostCarpenter) + "\". "
 		} else {
-			inputJSON.CostManufacturing = order.CostManufacturing
+			inputJSON.CostCarpenter = order.CostCarpenter
 		}
 	}
 
-	if inputJSON.CostPainting != order.CostPainting {
+	if inputJSON.CostGrinder != order.CostGrinder {
 
-		if inputJSON.CostPainting != 0 {
-			changes += "Изменена \"Цена покраски\" с \"" + strconv.Itoa(order.CostPainting) + "\" на \"" + strconv.Itoa(inputJSON.CostPainting) + "\". "
+		if inputJSON.CostGrinder != 0 {
+			changes += "Изменена \"Цена шлифовки\" с \"" + strconv.Itoa(order.CostGrinder) + "\" на \"" + strconv.Itoa(inputJSON.CostGrinder) + "\". "
 		} else {
-			inputJSON.CostPainting = order.CostPainting
+			inputJSON.CostGrinder = order.CostGrinder
 		}
 	}
 
-	if inputJSON.CostFinishing != order.CostFinishing {
+	if inputJSON.CostPainter != order.CostPainter {
 
-		if inputJSON.CostFinishing != 0 {
-			changes += "Изменена \"Цена отделки\" с \"" + strconv.Itoa(order.CostFinishing) + "\" на \"" + strconv.Itoa(inputJSON.CostFinishing) + "\". "
+		if inputJSON.CostPainter != 0 {
+			changes += "Изменена \"Цена покраски\" с \"" + strconv.Itoa(order.CostPainter) + "\" на \"" + strconv.Itoa(inputJSON.CostPainter) + "\". "
 		} else {
-			inputJSON.CostFinishing = order.CostFinishing
+			inputJSON.CostPainter = order.CostPainter
 		}
 	}
 
-	if inputJSON.CostFull != order.CostFull {
+	if inputJSON.CostCollector != order.CostCollector {
 
-		if inputJSON.CostFull != 0 {
-			changes += "Изменена \"Итоговая цена\" с \"" + strconv.Itoa(order.CostFull) + "\" на \"" + strconv.Itoa(inputJSON.CostFull) + "\". "
+		if inputJSON.CostCollector != 0 {
+			changes += "Изменена \"Цена сборки\" с \"" + strconv.Itoa(order.CostCollector) + "\" на \"" + strconv.Itoa(inputJSON.CostCollector) + "\". "
 		} else {
-			inputJSON.CostFull = order.CostFull
+			inputJSON.CostCollector = order.CostCollector
 		}
 	}
 
