@@ -10,8 +10,8 @@ type Workers struct {
 	Phone     int    `sql:",unique" json:"phone"`
 	Password  string `sql:",notnull" json:"pass"`
 	Initials  string `sql:",notnull" json:"initials"`
-	Сarpenter bool   `sql:",notnull, default:false" json:"carpenter"`
-	Grinder   bool   `sql:",notnull, default:false" json:"grinder"`
-	Painter   bool   `sql:",notnull, default:false" json:"painter"`
-	Collector bool   `sql:",notnull, default:false" json:"collector"`
+	Сarpenter bool   `sql:"default:false" json:"carpenter"`
+	Grinder   bool   `sql:"default:false" json:"grinder"`
+	Painter   bool   `sql:"default:false" json:"painter"`
+	Collector bool   `sql:"default:false" json:"collector"`
 }
