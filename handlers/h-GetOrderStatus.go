@@ -10,23 +10,61 @@ import (
 	"github.com/mrTavas/fw-backend/models"
 )
 
+// OrderStatusWithWorkers -
+type OrderStatusWithWorkers struct {
+	OrderStatus models.OrderStatus `json:"statuses"`
+
+	Сarpenter string `json:"carpenter"`
+	Grinder   string `json:"grinder"`
+	Painter   string `json:"painter"`
+	Collector string `json:"collector"`
+}
+
 // GetOrderStatus Return
 func GetOrderStatus(c echo.Context) error {
 
 	var inputJSON OrderID
-	var OutResponse models.Orders
+	var order models.Orders
+	var orders []models.SavedOrders
+	var OutResponse OrderStatusWithWorkers
 
 	err := c.Bind(&inputJSON)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
-	err = db.Conn.Model(&OutResponse).Where("ID = ?", inputJSON.ID).Select()
+	err = db.Conn.Model(&order).Where("ID = ?", inputJSON.ID).Select()
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
 
-	return echo.NewHTTPError(http.StatusOK, OutResponse.Status)
+	OutResponse.OrderStatus = order.Status
+
+	_, err = db.Conn.Query(&orders, "SELECT * FROM saved_orders where order_id = ?", inputJSON.ID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+
+	for i := 0; i < (len(orders)); i++ {
+
+		if orders[i].Status.StatusManufacturingEnd == true && orders[i].Status.StatusGrindingStart == false {
+			OutResponse.Сarpenter = orders[i].CurrentWorkerInitials
+		}
+
+		if orders[i].Status.StatusGrindingEnd == true && orders[i].Status.StatusPrintingStart == false {
+			OutResponse.Grinder = orders[i].CurrentWorkerInitials
+		}
+
+		if orders[i].Status.StatusPrintingEnd == true && orders[i].Status.StatusCollectingStart == false {
+			OutResponse.Painter = orders[i].CurrentWorkerInitials
+		}
+
+		if orders[i].Status.StatusCollectingEnd == true {
+			OutResponse.Collector = orders[i].CurrentWorkerInitials
+		}
+	}
+
+	return echo.NewHTTPError(http.StatusOK, OutResponse)
 
 }
