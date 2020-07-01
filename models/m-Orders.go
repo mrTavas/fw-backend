@@ -67,10 +67,10 @@ type Orders struct {
 	FasadArticle string `json:"fasad_article"`
 	Material     string `json:"material"`
 
-	CostCarpenter int `sql:",notnull" json:"cost_carpenter"`
-	CostGrinder   int `sql:",notnull" json:"cost_grinder"`
-	CostPainter   int `sql:",notnull" json:"cost_painter"`
-	CostCollector int `sql:",notnull" json:"cost_collector"`
+	CostCarpenter int `json:"cost_carpenter"`
+	CostGrinder   int `json:"cost_grinder"`
+	CostPainter   int `json:"cost_painter"`
+	CostCollector int `json:"cost_collector"`
 
 	Params []OrdersParam `json:"params"`
 }
