@@ -28,6 +28,8 @@
 
 - [GetOrders](#GetOrders)
 
+- [GetSavedOrders](#GetSavedOrders)
+
 - [GetOrderStatus](#GetOrderStatus)
 
 - [StartStep](#StartStep)
@@ -377,6 +379,79 @@ ___
 
     {
         "orders": [
+            {
+                "id": 1,
+                "title": "Title",
+                "Date": "2020-06-30T17:33:32.59735+03:00",
+                "status": {
+                    "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+                    "data_office_end": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_start": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_end": "0001-01-01T00:00:00Z",
+                    "data_grinding_start": "0001-01-01T00:00:00Z",
+                    "data_grinding_end": "0001-01-01T00:00:00Z",
+                    "data_printing_start": "0001-01-01T00:00:00Z",
+                    "data_printing_end": "0001-01-01T00:00:00Z",
+                    "data_collecting_start": "0001-01-01T00:00:00Z",
+                    "data_collecting_end": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office_start": true,
+                    "status_office_end": false,
+                    "status_manufacturing_start": false,
+                    "status_manufacturing_end": false,
+                    "status_grinding_start": false,
+                    "status_grinding_end": false,
+                    "status_printing_start": false,
+                    "status_printing_end": false,
+                    "status_collecting_start": false,
+                    "status_collecting_end": false,
+                    "status_ready": false
+                },
+                "client_id": 0,
+                "client_initials": "Clientov A.V.",
+                "client_phone": 79888563211,
+                "current_worker_id": 1,
+                "current_worker_initials": " Плотный П. В.",
+                "current_worker_phone": 8988879411111,
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree",
+                "cost_carpenter": 3000,
+                "cost_grinder": 2000,
+                "cost_painter": 1500,
+                "cost_collector": 2000,
+                "params": [
+                    {
+                        "title": "Some Title ",
+                        "height": 12,
+                        "width": 0,
+                        "filenka": "filenka"
+                    },
+                    {
+                        "title": "Some Comment2",
+                        "height": 13,
+                        "width": 0,
+                        "filenka": "panel2"
+                    }
+                ]
+            }
+        ]
+    }
+
+---
+
+### GetSavedOrders
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetSavedOrders
+    
+Описание:
+Взвращает список всех завершенных стадий заказов. Метод Get.
+
+
+Пример ответа:
+
+    {
+        "saved_orders": [
             {
                 "id": 1,
                 "title": "Title",
