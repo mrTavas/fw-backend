@@ -20,7 +20,7 @@ func GetManagers(c echo.Context) error {
 
 	var OutResponse AllManagers
 
-	_, err := db.Conn.Query(&OutResponse.Managers, "SELECT * FROM managers")
+	_, err := db.Conn.Query(&OutResponse.Managers, "SELECT * FROM managers order by ID")
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)

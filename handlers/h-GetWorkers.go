@@ -20,7 +20,7 @@ func GetWorkers(c echo.Context) error {
 
 	var OutResponse AllWorkers
 
-	_, err := db.Conn.Query(&OutResponse.Workerss, "SELECT * FROM workers")
+	_, err := db.Conn.Query(&OutResponse.Workerss, "SELECT * FROM workers order by ID")
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
