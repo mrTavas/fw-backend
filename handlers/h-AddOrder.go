@@ -16,17 +16,25 @@ import (
 func AddOrder(c echo.Context) error {
 
 	var inputJSON models.Orders
-	var worker models.Workers
 
 	err := c.Bind(&inputJSON)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
-	// Select Worker by id
-	err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkerID).Select()
-	if err != nil {
-		return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+	// Try Select Worker by id
+	if inputJSON.CurrentWorkerID > 0 {
+		var worker models.Workers
+
+		err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkerID).Select()
+		if err != nil {
+			return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+		}
+
+		// Add worker by id
+		inputJSON.CurrentWorkerInitials = worker.Initials
+		inputJSON.CurrentWorkerPhone = worker.Phone
+
 	}
 
 	// Try select Client by id
@@ -45,10 +53,6 @@ func AddOrder(c echo.Context) error {
 	// Default values
 	inputJSON.Status.StatusOfficeStart = true
 	inputJSON.Status.DataOfficeStart = time.Now()
-
-	// Add worker by id
-	inputJSON.CurrentWorkerInitials = worker.Initials
-	inputJSON.CurrentWorkerPhone = worker.Phone
 
 	// Insert
 	err = db.Conn.Insert(&models.Orders{
