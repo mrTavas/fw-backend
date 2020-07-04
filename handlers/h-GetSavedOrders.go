@@ -20,7 +20,7 @@ func GetSavedOrders(c echo.Context) error {
 
 	var OutResponse AllSavedOrders
 
-	_, err := db.Conn.Query(&OutResponse.SavedOrders, "SELECT * FROM saved_orders")
+	_, err := db.Conn.Query(&OutResponse.SavedOrders, "SELECT * FROM saved_orders order by order_id")
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
