@@ -79,7 +79,7 @@
 
     export PATH=$PATH:$GOPATH/bin
 
-Наконец, вам нужно добавить двоичный файл go в PATH. Для этого добавьте /usr/local/go/bin в конец строки:
+Наконец, необходимо добавить двоичный файл go в PATH. Для этого добавьте /usr/local/go/bin в конец строки:
 
     export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
 
