@@ -16,6 +16,7 @@ import (
 func AddOrder(c echo.Context) error {
 
 	var inputJSON models.Orders
+	//var outResponse models.Orders
 
 	err := c.Bind(&inputJSON)
 	if err != nil {
@@ -55,30 +56,11 @@ func AddOrder(c echo.Context) error {
 	inputJSON.Status.DataOfficeStart = time.Now()
 
 	// Insert
-	err = db.Conn.Insert(&models.Orders{
-		Date:                  inputJSON.Date,
-		Title:                 inputJSON.Title,
-		Status:                inputJSON.Status,
-		ClientID:              inputJSON.ClientID,
-		ClientInitials:        inputJSON.ClientInitials,
-		ClientPhone:           inputJSON.ClientPhone,
-		CurrentWorkerID:       inputJSON.CurrentWorkerID,
-		CurrentWorkerInitials: inputJSON.CurrentWorkerInitials,
-		CurrentWorkerPhone:    inputJSON.CurrentWorkerPhone,
-		CostCarpenter:         inputJSON.CostCarpenter,
-		CostGrinder:           inputJSON.CostGrinder,
-		CostPainter:           inputJSON.CostPainter,
-		CostCollector:         inputJSON.CostCollector,
-		Color:                 inputJSON.Color,
-		Patina:                inputJSON.Patina,
-		FasadArticle:          inputJSON.FasadArticle,
-		Material:              inputJSON.Material,
-		Params:                inputJSON.Params,
-	})
+	_, err = db.Conn.Model(&inputJSON).Returning("*").Insert()
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
 
-	return echo.NewHTTPError(http.StatusOK, "Order added")
+	return echo.NewHTTPError(http.StatusOK, inputJSON.ID)
 }
