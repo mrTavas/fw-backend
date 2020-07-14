@@ -90,6 +90,7 @@ func main() {
 
 	// Uploads (www/html/uploads)
 	jwtGroup.POST("/upload", h.Upload)
+	jwtGroup.POST("/UploadOrderExcel", h.UploadOrderExcel)
 
 	// JWT middleware
 	o := e.Group("/api")
