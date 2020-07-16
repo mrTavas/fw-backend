@@ -114,3 +114,11 @@ type OrdersChangesLogs struct {
 
 	Changes string `json:"changes"`
 }
+
+// OrdersFilesLinks -
+type OrdersFilesLinks struct {
+	ID      int    `sql:",pk"`
+	OrderID int    `json:"order_id"`
+	Excel   string `json:"excel"`
+	Pdf     string `json:"pdf"`
+}
