@@ -85,11 +85,12 @@ func main() {
 	jwtGroup.POST("/GetOrderAllChanges", h.GetOrderAllChanges)
 	jwtGroup.POST("/StartStep", h.StartStep)
 	jwtGroup.POST("/EndStep", h.EndStep)
+	jwtGroup.POST("/GetOrderFilesLinks", h.GetOrderFilesLinks)
 
 	// jwtGroup.POST("/EditOrder", h.EditOrder)
 
 	// Uploads (www/html/uploads)
-	jwtGroup.POST("/upload", h.Upload)
+	jwtGroup.POST("/UploadWorkerImage", h.UploadWorkerImage)
 	jwtGroup.POST("/UploadOrderExcel", h.UploadOrderExcel)
 
 	// JWT middleware
