@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
@@ -22,6 +24,14 @@ func main() {
 	}
 	defer dbconn.CloseDbConnection(dbconn.Conn)
 
+	// defoult presets
+	// defoult image for workers folder
+	err = os.MkdirAll("/var/www/html/uploads/workersImages/default", 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	// Routers and Middlewares
 	e := echo.New()
 
 	// Middleware
