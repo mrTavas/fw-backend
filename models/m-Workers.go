@@ -14,4 +14,5 @@ type Workers struct {
 	Grinder   bool   `sql:"default:false" json:"grinder"`
 	Painter   bool   `sql:"default:false" json:"painter"`
 	Collector bool   `sql:"default:false" json:"collector"`
+	ImageLink string `json:"image_link"`
 }
