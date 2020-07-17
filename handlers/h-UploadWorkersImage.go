@@ -5,13 +5,19 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 
 	//local
 	"github.com/labstack/echo"
+	db "github.com/mrTavas/fw-backend/dbconn"
+	"github.com/mrTavas/fw-backend/models"
 )
 
 // UploadWorkerImage  - upload all files in /var/www/html/uploads/workersImages
 func UploadWorkerImage(c echo.Context) error {
+
+	// Read form fields
+	workerUUID := c.FormValue("workerUUID")
 
 	// Source
 	file, err := c.FormFile("file")
@@ -23,6 +29,14 @@ func UploadWorkerImage(c echo.Context) error {
 		return c.HTML(http.StatusOK, fmt.Sprintf("Error. (.png, .jpg, .jpeg formats only)"))
 
 	}
+
+	// Clear folder
+	cmd := exec.Command("rm", "-rf", "/var/www/html/uploads/workersImages"+workerUUID)
+	cmd.Stdout = os.Stdout
+	cmd.Stdin = os.Stdin
+	cmd.Stderr = os.Stderr
+	cmd.Run()
+
 	src, err := file.Open()
 	if err != nil {
 		return err
@@ -30,7 +44,12 @@ func UploadWorkerImage(c echo.Context) error {
 	defer src.Close()
 
 	// Destination
-	dst, err := os.Create("/var/www/html/uploads/workersImages/" + file.Filename)
+	err = os.MkdirAll("/var/www/html/uploads/workersImages/"+workerUUID, 0777)
+	if err != nil {
+		return err
+	}
+
+	dst, err := os.Create("/var/www/html/uploads/workersImages/" + workerUUID + "/" + file.Filename)
 	if err != nil {
 		return err
 	}
@@ -39,6 +58,20 @@ func UploadWorkerImage(c echo.Context) error {
 	// Copy
 	if _, err = io.Copy(dst, src); err != nil {
 		return err
+	}
+
+	var worker models.Workers
+
+	_, err = db.Conn.Query(&worker, "SELECT * FROM workers WHERE uuid = ?", workerUUID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err)
+	}
+
+	worker.ImageLink = "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/" + workerUUID + "/" + file.Filename
+
+	err = db.Conn.Update(&worker)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
 
 	return c.HTML(http.StatusOK, fmt.Sprintf("<p>File %s uploaded successfully</p>", file.Filename))
