@@ -938,7 +938,8 @@ ___
                 "carpenter": false,
                 "grinder": false,
                 "painter": false,
-                "collector": false
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/6a617ea2-82d1-425a-b0fd-192910539bd5/kuda.jpg"
             },
             {
                 "ID": 2,
@@ -950,7 +951,8 @@ ___
                 "carpenter": false,
                 "grinder": false,
                 "painter": false,
-                "collector": false
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
             }
         ]
     }
@@ -977,7 +979,9 @@ ___
                 "carpenter": true,
                 "grinder": false,
                 "painter": false,
-                "collector": false
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+
             },
             {
                 "ID": 1,
@@ -989,7 +993,9 @@ ___
                 "carpenter": true,
                 "grinder": false,
                 "painter": false,
-                "collector": false
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+
             }
         ]
     }
@@ -1016,7 +1022,9 @@ ___
                 "carpenter": true,
                 "grinder": true,
                 "painter": false,
-                "collector": false
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+
             }
         ]
     }
@@ -1043,7 +1051,9 @@ ___
                 "carpenter": false,
                 "grinder": false,
                 "painter": true,
-                "collector": false
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+
             }
         ]
     }
@@ -1070,7 +1080,9 @@ ___
                 "carpenter": false,
                 "grinder": false,
                 "painter": false,
-                "collector": true
+                "collector": true,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+
             }
         ]
     }
@@ -1295,6 +1307,47 @@ ___
 
     {
         "orders": null
+    }
+
+---
+
+### UploadWorkerImage
+    http://fwqqq-backend.ddns.net:1323/api/auth/UploadWorkerImage
+    
+Описание:
+Загружает картинку для работника. Необходимо передать изображение и `uuid` работника.
+Пример фрагмента загрузщика:
+
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Workers image uploader</title>
+</head>
+<body>
+<h1>Upload image</h1>
+
+<form action="http://fwqqq-backend.ddns.net:1323/api/auth/UploadWorkerImage" method="post" enctype="multipart/form-data">
+    
+    <!-- Тут uuid работника. В поле value передать uuid работника -->    
+    <input type="hidden" name="workerUUID" value="30199308-ce6f-4254-ad4a-41a56d9621"><br>
+
+    Files: <input type="file" name="file"><br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+```
+
+Пример ответа в случае успеха:
+
+    File %s uploaded successfully
+
+Пример ответа в случае если работник с таким id несуществует:
+
+    {
+        "message": "pg: no rows in result set"
     }
 
 ---
