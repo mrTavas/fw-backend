@@ -46,6 +46,7 @@ func AddWorker(c echo.Context) error {
 		Grinder:   inputJSON.Grinder,
 		Painter:   inputJSON.Painter,
 		Collector: inputJSON.Collector,
+		ImageLink: "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg",
 	})
 
 	if err != nil {
