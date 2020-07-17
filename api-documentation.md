@@ -44,6 +44,8 @@
 
 - [GetOrderLastChanges](#GetOrderLastChanges)
 
+- [UploadOrderExcel](#UploadOrderExcel)
+
 
 ### Работа с прайс листами:
 
@@ -60,10 +62,6 @@
 
 - [GetWorkers](#GetWorkers)
 
-- [GetWorkerCurrentOrders](#GetWorkerCurrentOrders)
-
-- [GetWorkerOldOrders](#GetWorkerOldOrders)
-
 - [GetAllCarpenters](#GetAllCarpenters)
 
 - [GetAllGrinders](#GetAllGrinders)
@@ -75,6 +73,13 @@
 - [EditWorker](#EditWorker)
 
 - [DeleteWorker](#DeleteWorker)
+
+- [GetWorkerOldOrders](#GetWorkerOldOrders)
+
+- [GetWorkerCurrentOrders](#GetWorkerCurrentOrders)
+
+- [UploadWorkerImage](#UploadWorkerImage)
+
 
 ### Работа с менеджерами:
 - [GetManagers](#GetManagers)
@@ -791,6 +796,64 @@ ___
         "manager_id": 1,
         "initials": "Mr Manager",
         "changes": "Изменено Title с Title на i change it. Изменено StatusManufacturing с true на false. Изменено Комментарий к параметрам с Some Title  на HH."
+    }
+
+---
+
+### UploadOrderExcel
+    http://fwqqq-backend.ddns.net:1323/api/auth/UploadOrderExcel
+    
+Описание:
+Загружает excel фаил заказа. Необходимо передать фаил и id заказа. Загруженный фаил автоматически конвертируется в pdf. Ссылки на pdf и excel можно получить используя метод `GetOrderFileLinks`.
+
+Пример реализации загрузщика:
+
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Upload excel file for order</title>
+</head>
+<body>
+<h1>Upload file</h1>
+
+<form action="http://fwqqq-backend.ddns.net:1323/api/auth/UploadOrderExcel" method="post" enctype="multipart/form-data">
+    
+    <!-- Тут id заказа. В поле value передать id заказа -->    
+    <input type="hidden" name="orderID" value="1"><br>
+
+    Files: <input type="file" name="file"><br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+```
+
+Пример ответа:
+
+    File %s uploaded successfully
+
+---
+
+### GetOrderFileLinks
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetOrderFilesLinks
+    
+Описание:
+Возвращает ссылки на excel и pdf файлы привязанные к заказу по id заказа. Метод Post.
+
+Пример тела запроса:
+
+    {
+        "id": 1
+    }
+
+
+Пример ответа:
+
+    {
+        "excel": "http://fwqqq-backend.ddns.net:8001/uploads/orders/1/order1.xlsx",
+        "pdf": "http://fwqqq-backend.ddns.net:8001/uploads/orders/1/order1.pdf"
     }
 
 ---
