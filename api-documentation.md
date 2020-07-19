@@ -271,10 +271,11 @@ ___
     http://fwqqq-backend.ddns.net:1323/api/auth/neworder
     
 Описание:
-Создает новый заказ. Метод Post.
+Создает новый заказ. Метод Post. Возвращает id созданного заказа.
 Структура заказа:
 
 - `ID` - id заказа;
+- `Title` - Название заказа:    
 - `Status` - Статус заказа:
 
     - `status_office_start` - Этап оффис начат (default: true);
@@ -290,12 +291,6 @@ ___
 - `ClientID` - id клиента (если клиент не зарегистрирован передавать client_id = 0);
 - `ClientInitials` - инициалы клиента (передавать если client_id = 0);
 - `ClientPhone` - телефон клиента (передавать если client_id = 0);
-- `CurrentWorkerID` - id работника (инициалы и телефон работника автоматически добавятся в заказ);
-- `Title` - Название заказа:    
-- `ClientInitials` - Инициалы клиента;
-- `ClientPhone` - Телефон клиента;
-- `CurrentWorkerInitials` - Инициалы текущего работника (добавятся автоматически по id);
-- `CurrentWorkerPhone` - Телефон текущего работника (добавится автоматически по id);
 - `СostManufacturing` - Цена производства;
 - `CostPainting` - Цена покраски;
 - `CostFinishing` - Цена производства;
@@ -315,11 +310,10 @@ ___
         "client_id": 0,
         "client_initials": "Clientov A.V.",
         "client_phone" : 79888563211,
-        "current_worker_id": 1,
-        "cost_manufacturing": 3000,
-        "cost_painting": 2000,
-        "cost_finishing": 1500,
-        "cost_full": 7500,
+        "cost_carpenter": 0,
+        "cost_grinder": 2000,
+        "cost_painter": 0,
+        "cost_collector": 2000,
         "color": "red",
         "patina": "patina",
         "fasad_article": "SomeArticle",
@@ -342,7 +336,7 @@ ___
 Ответ:
 
     {
-        "message": "Order added"
+        "id": 1
     }
 
 
