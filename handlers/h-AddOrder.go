@@ -62,5 +62,7 @@ func AddOrder(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
 
-	return echo.NewHTTPError(http.StatusOK, inputJSON.ID)
+	var outResponse OrderID
+	outResponse.ID = inputJSON.ID
+	return echo.NewHTTPError(http.StatusOK, outResponse)
 }
