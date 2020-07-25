@@ -17,6 +17,7 @@ import (
 // UploadOrderExcel  - upload order excel list /var/www/html/uploads/?
 func UploadOrderExcel(c echo.Context) error {
 
+	var order models.Orders
 	// Read form fields
 	orderID := c.FormValue("orderID")
 
@@ -80,6 +81,11 @@ func UploadOrderExcel(c echo.Context) error {
 		Excel:   "http://fwqqq-backend.ddns.net:8001/uploads/orders/" + orderID + "/" + file.Filename,
 		Pdf:     "http://fwqqq-backend.ddns.net:8001/uploads/orders/" + orderID + "/" + file.Filename[:len(file.Filename)-lenSymbols] + "pdf",
 	})
+	if err != nil {
+		return echo.NewHTTPError(http.StatusOK, err.Error())
+	}
+
+	_, err = db.Conn.Model(&order).Set("pdf_link = ?", "http://fwqqq-backend.ddns.net:8001/uploads/orders/"+orderID+"/"+file.Filename[:len(file.Filename)-lenSymbols]+"pdf").Where("ID = ?", orderID).Update()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
