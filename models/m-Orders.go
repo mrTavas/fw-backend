@@ -73,6 +73,8 @@ type Orders struct {
 	CostCollector int `json:"cost_collector"`
 
 	Params []OrdersParam `json:"params"`
+
+	PdfLink string `json:"pdf_link"`
 }
 
 // SavedOrders - saves orders when status chenged
