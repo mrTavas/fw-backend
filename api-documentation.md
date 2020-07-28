@@ -433,6 +433,8 @@ ___
                         "width": 0,
                         "filenka": "panel2"
                     }
+                "pdf_link": "http://fwqqq-backend.ddns.net:8001/uploads/orders/1/order1.pdf"
+
                 ]
             }
         ]
@@ -506,6 +508,8 @@ ___
                         "width": 0,
                         "filenka": "panel2"
                     }
+                "pdf_link": "http://fwqqq-backend.ddns.net:8001/uploads/orders/1/order1.pdf"
+
                 ]
             }
         ]
@@ -713,6 +717,7 @@ ___
                 "width": 0,
                 "filenka": "panel2"
             }
+
         ]
     }
 
