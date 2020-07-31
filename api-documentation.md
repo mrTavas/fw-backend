@@ -1416,6 +1416,64 @@ ___
 
 ---
 
+### GetWorkersPost
+    http://fwqqq-backend.ddns.net:1323/api/auth/GetWorkersPost
+    
+Описание:
+Взвращает список всех работников в соответствии с их должностью. Метод Get.
+
+Пример ответа:
+
+    {
+        "carpenters": [
+            {
+                "ID": 1,
+                "uuid": "a9132de5-eab9-44d1-b2a4-51b2488c7026",
+                "CurrentBalance": 4200,
+                "phone": 8988879490722,
+                "pass": "qwerty1",
+                "initials": "Погрузочный А. Б.",
+                "carpenter": true,
+                "grinder": false,
+                "painter": false,
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+            },
+            {
+                "ID": 3,
+                "uuid": "23173e90-c3bf-443a-bdc3-23caa1f60416",
+                "CurrentBalance": 0,
+                "phone": 8988879490720,
+                "pass": "qwerty1",
+                "initials": "Промзводный И. А.",
+                "carpenter": true,
+                "grinder": false,
+                "painter": false,
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+            }
+        ],
+        "grinders": [
+            {
+                "ID": 4,
+                "uuid": "398ab9a5-ea06-40a7-b594-417609ca7751",
+                "CurrentBalance": 0,
+                "phone": 8988879490727,
+                "pass": "qwerty1",
+                "initials": "Гриндный В. И.",
+                "carpenter": false,
+                "grinder": true,
+                "painter": false,
+                "collector": false,
+                "image_link": "http://fwqqq-backend.ddns.net:8001/uploads/workersImages/default/image.jpg"
+            }
+        ],
+        "painters": null,
+        "collectors": null
+    }
+
+---
+
 ## Работа с менеджерами
 ### GetManagers
     http://fwqqq-backend.ddns.net:1323/api/auth/GetManagers
