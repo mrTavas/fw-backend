@@ -82,6 +82,8 @@
 
 - [UploadWorkerImage](#UploadWorkerImage)
 
+- [GetWorkersPost](#GetWorkersPost)
+
 
 ### Работа с менеджерами:
 - [GetManagers](#GetManagers)
