@@ -71,6 +71,8 @@ func main() {
 	jwtGroup.POST("/newworker", h.AddWorker)
 	jwtGroup.POST("/DeleteWorker", h.DeleteWorker)
 	jwtGroup.GET("/GetWorkers", h.GetWorkers)
+	jwtGroup.GET("/GetWorkersPost", h.GetWorkersPost)
+
 	jwtGroup.POST("/GetWorkerCurrentOrders", h.GetWorkerCurrentOrders)
 	jwtGroup.POST("/GetWorkerOldOrders", h.GetWorkerOldOrders)
 	jwtGroup.POST("/EditWorker", h.EditWorker)
