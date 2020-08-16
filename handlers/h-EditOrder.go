@@ -185,20 +185,23 @@ func EditOrder(c echo.Context) error {
 
 	}
 
-	if inputJSON.CurrentWorkerID != order.CurrentWorkerID {
+	for i := 0; i < (len(inputJSON.CurrentWorkers)); i++ {
 
-		// Select Worker by id
-		err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkerID).Select()
-		if err != nil {
-			return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+		if inputJSON.CurrentWorkers[i].CurrentWorkerID != order.CurrentWorkers[i].CurrentWorkerID {
+
+			// Select Worker by id
+			err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkers[i].CurrentWorkerID).Select()
+			if err != nil {
+				return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+			}
+
+			// Add worker by id
+			inputJSON.CurrentWorkers[i].CurrentWorkerInitials = worker.Initials
+			inputJSON.CurrentWorkers[i].CurrentWorkerPhone = worker.Phone
+
+			changes += "Изменен \"Текущий работник заказа\" на \"" + inputJSON.CurrentWorkers[i].CurrentWorkerInitials + "\", номер телефона: \"" + strconv.Itoa(inputJSON.CurrentWorkers[i].CurrentWorkerPhone) + "\". "
+
 		}
-
-		// Add worker by id
-		inputJSON.CurrentWorkerInitials = worker.Initials
-		inputJSON.CurrentWorkerPhone = worker.Phone
-
-		changes += "Изменен \"Текущий работник заказа\" на \"" + inputJSON.CurrentWorkerInitials + "\", номер телефона: \"" + strconv.Itoa(inputJSON.CurrentWorkerPhone) + "\". "
-
 	}
 
 	if inputJSON.Color != order.Color {
