@@ -12,8 +12,8 @@ import (
 )
 
 type nextStatus struct {
-	OrderID     int `json:"order_id"`
-	NewWorderID int `json:"new_worker_id"`
+	OrderID      int        `json:"order_id"`
+	NewWorkersID []WorkerID `json:"new_workers_id"`
 }
 
 // StartStep - start next step
@@ -24,18 +24,35 @@ func StartStep(c echo.Context) error {
 	var currentStatus string
 	var worker models.Workers
 
+	var currentWorker models.CurrentWorker
+	var workers []models.CurrentWorker
+
+	var currentWorkersForLogs string
+
 	err := c.Bind(&inputJSON)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
-	// Select Worker by id
-	// id 0 - it's a last step where new worker don't need
-	if inputJSON.NewWorderID != 0 {
+	for i := 0; i < (len(inputJSON.NewWorkersID)); i++ {
 
-		err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.NewWorderID).Select()
-		if err != nil {
-			return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+		// Select Worker by id
+		// id 0 - it's a last step where new worker don't need
+		if inputJSON.NewWorkersID[i].ID != 0 {
+
+			err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.NewWorkersID[i].ID).Select()
+			if err != nil {
+				return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+			}
+
+			currentWorker.CurrentWorkerID = worker.ID
+			currentWorker.CurrentWorkerInitials = worker.Initials
+			currentWorker.CurrentWorkerPhone = worker.Phone
+
+			workers = append(workers, currentWorker)
+
+			currentWorkersForLogs += worker.Initials + " "
+
 		}
 	}
 
@@ -78,12 +95,20 @@ func StartStep(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusOK, "Есть незавершенные этапы.")
 	}
 
-	// Change Worker in current order
-	order.CurrentWorkerID = worker.ID
-	order.CurrentWorkerInitials = worker.Initials
-	order.CurrentWorkerPhone = worker.Phone
+	// // Change Worker in current order
+	// for i := 0; i < (len(inputJSON.NewWorkersID)); i++ {
+	// 	println("pass -> +1")
 
-	changes := "Заказ начал этап \"" + currentStatus + "\". Назначенный на данный этап работник: \"" + worker.Initials + "\""
+	// 	order.CurrentWorkers[i].CurrentWorkerID = workers[i].CurrentWorkerID
+	// 	order.CurrentWorkers[i].CurrentWorkerInitials = workers[i].CurrentWorkerInitials
+	// 	order.CurrentWorkers[i].CurrentWorkerPhone = workers[i].CurrentWorkerPhone
+
+	// 	// currentWorkersForLogs += workers[i].CurrentWorkerInitials + " "
+
+	// 	println("pass -> +2")
+	// }
+
+	changes := "Заказ начал этап \"" + currentStatus + "\". Назначенные на данный этап работники: \"" + currentWorkersForLogs + "\""
 
 	// Save Logs
 	err = db.Conn.Insert(&models.OrdersChangesLogs{
@@ -95,7 +120,7 @@ func StartStep(c echo.Context) error {
 	}
 
 	// Save current order
-	_, err = db.Conn.Model(&order).Set("Status = ?, current_worker_id = ?, current_worker_initials = ?, current_worker_phone = ?", order.Status, order.CurrentWorkerID, order.CurrentWorkerInitials, order.CurrentWorkerPhone).Where("ID = ?", inputJSON.OrderID).Update()
+	_, err = db.Conn.Model(&order).Set("Status = ?, current_workers = ?", order.Status, workers).Where("ID = ?", inputJSON.OrderID).Update()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
