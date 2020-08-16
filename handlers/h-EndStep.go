@@ -110,7 +110,15 @@ func EndStep(c echo.Context) error {
 	}
 
 	// Save current order (nobody has this order)
-	_, err = db.Conn.Model(&order).Set("Status = ?, current_worker_id = ?, current_worker_initials = ?, current_worker_phone = ?", order.Status, 0, "", 0).Where("ID = ?", inputJSON.ID).Update()
+	// var resetCurrentWorkers []models.CurrentWorker
+	// ??
+	for i := 0; i < (len(order.CurrentWorkers)); i++ {
+
+		order.CurrentWorkers[i].CurrentWorkerID = 0
+		order.CurrentWorkers[i].CurrentWorkerInitials = ""
+		order.CurrentWorkers[i].CurrentWorkerPhone = 0
+	}
+	_, err = db.Conn.Model(&order).Set("Status = ?, current_workers = ?", order.Status, order.CurrentWorkers).Where("ID = ?", inputJSON.ID).Update()
 	if err != nil {
 		return echo.NewHTTPError(http.StatusOK, err.Error())
 	}
