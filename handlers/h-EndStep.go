@@ -46,7 +46,10 @@ func EndStep(c echo.Context) error {
 		order.Status.StatusManufacturingEnd = true
 		order.Status.DataManufacturingEnd = time.Now()
 
-		IncBalance(order.CurrentWorkerID, order.CostCarpenter)
+		for i := 0; i < (len(order.CurrentWorkers)); i++ {
+
+			IncBalance(order.CurrentWorkers[i].CurrentWorkerID, order.CostCarpenter)
+		}
 
 	} else if order.Status.StatusGrindingEnd == false && order.Status.StatusGrindingStart == true {
 
@@ -54,7 +57,10 @@ func EndStep(c echo.Context) error {
 		order.Status.StatusGrindingEnd = true
 		order.Status.DataGrindingEnd = time.Now()
 
-		IncBalance(order.CurrentWorkerID, order.CostGrinder)
+		for i := 0; i < (len(order.CurrentWorkers)); i++ {
+
+			IncBalance(order.CurrentWorkers[i].CurrentWorkerID, order.CostGrinder)
+		}
 
 	} else if order.Status.StatusPrintingEnd == false && order.Status.StatusPrintingStart == true {
 
@@ -62,7 +68,10 @@ func EndStep(c echo.Context) error {
 		order.Status.StatusPrintingEnd = true
 		order.Status.DataPrintingEnd = time.Now()
 
-		IncBalance(order.CurrentWorkerID, order.CostPainter)
+		for i := 0; i < (len(order.CurrentWorkers)); i++ {
+
+			IncBalance(order.CurrentWorkers[i].CurrentWorkerID, order.CostPainter)
+		}
 
 	} else if order.Status.StatusCollectingEnd == false && order.Status.StatusCollectingStart == true {
 
@@ -73,7 +82,10 @@ func EndStep(c echo.Context) error {
 		order.Status.StatusReady = true
 		order.Status.DataReady = time.Now()
 
-		IncBalance(order.CurrentWorkerID, order.CostCollector)
+		for i := 0; i < (len(order.CurrentWorkers)); i++ {
+
+			IncBalance(order.CurrentWorkers[i].CurrentWorkerID, order.CostCollector)
+		}
 
 	} else {
 		return echo.NewHTTPError(http.StatusOK, "Нет начатых этапов.")
@@ -140,9 +152,7 @@ func SaveOrder(order models.Orders) error {
 		ClientInitials: order.ClientInitials,
 		ClientPhone:    order.ClientPhone,
 
-		CurrentWorkerID:       order.CurrentWorkerID,
-		CurrentWorkerInitials: order.CurrentWorkerInitials,
-		CurrentWorkerPhone:    order.CurrentWorkerPhone,
+		CurrentWorkers: order.CurrentWorkers,
 
 		Color:        order.Color,
 		Patina:       order.Patina,
