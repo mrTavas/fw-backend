@@ -23,18 +23,23 @@ func AddOrder(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, "Wrong data")
 	}
 
-	// Try Select Worker by id
-	if inputJSON.CurrentWorkerID > 0 {
-		var worker models.Workers
+	// Select all workers by id
+	for i := 0; i < (len(inputJSON.CurrentWorkers)); i++ {
 
-		err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkerID).Select()
-		if err != nil {
-			return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+		// Try Select Worker by id
+		if inputJSON.CurrentWorkers[0].CurrentWorkerID > 0 {
+			var worker models.Workers
+
+			err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkers[i].CurrentWorkerID).Select()
+			if err != nil {
+				return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+			}
+
+			// Add worker by id
+			inputJSON.CurrentWorkers[i].CurrentWorkerInitials = worker.Initials
+			inputJSON.CurrentWorkers[i].CurrentWorkerPhone = worker.Phone
+
 		}
-
-		// Add worker by id
-		inputJSON.CurrentWorkerInitials = worker.Initials
-		inputJSON.CurrentWorkerPhone = worker.Phone
 
 	}
 
