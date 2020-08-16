@@ -14,10 +14,10 @@ import (
 type OrderStatusWithWorkers struct {
 	OrderStatus models.OrderStatus `json:"statuses"`
 
-	Сarpenter string `json:"carpenter"`
-	Grinder   string `json:"grinder"`
-	Painter   string `json:"painter"`
-	Collector string `json:"collector"`
+	Сarpenters []string `json:"carpenters"`
+	Grinders   []string `json:"grinders"`
+	Painters   []string `json:"painters"`
+	Collectors []string `json:"collectors"`
 }
 
 // GetOrderStatus Return
@@ -49,19 +49,35 @@ func GetOrderStatus(c echo.Context) error {
 	for i := 0; i < (len(orders)); i++ {
 
 		if orders[i].Status.StatusManufacturingEnd == true && orders[i].Status.StatusGrindingStart == false {
-			OutResponse.Сarpenter = orders[i].CurrentWorkerInitials
+
+			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
+
+				OutResponse.Сarpenters[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+			}
 		}
 
 		if orders[i].Status.StatusGrindingEnd == true && orders[i].Status.StatusPrintingStart == false {
-			OutResponse.Grinder = orders[i].CurrentWorkerInitials
+
+			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
+
+				OutResponse.Grinders[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+			}
 		}
 
 		if orders[i].Status.StatusPrintingEnd == true && orders[i].Status.StatusCollectingStart == false {
-			OutResponse.Painter = orders[i].CurrentWorkerInitials
+
+			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
+
+				OutResponse.Painters[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+			}
 		}
 
 		if orders[i].Status.StatusCollectingEnd == true {
-			OutResponse.Collector = orders[i].CurrentWorkerInitials
+
+			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
+
+				OutResponse.Collectors[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+			}
 		}
 	}
 
