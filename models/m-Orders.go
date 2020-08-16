@@ -10,6 +10,13 @@ type OrdersParam struct {
 	Filenka string `json:"filenka"`
 }
 
+// CurrentWorker - information about current worker/s
+type CurrentWorker struct {
+	CurrentWorkerID       int    `sql:"default:Null" json:"current_worker_id"`
+	CurrentWorkerInitials string `sql:"default:Null" json:"current_worker_initials"`
+	CurrentWorkerPhone    int    `json:"current_worker_phone"`
+}
+
 // OrderStatus and Data list for orders
 type OrderStatus struct {
 	DataOfficeStart time.Time `sql:"default:now()" json:"data_office_start"`
@@ -58,9 +65,7 @@ type Orders struct {
 	ClientInitials string `sql:",notnull" json:"client_initials"`
 	ClientPhone    int    `json:"client_phone"`
 
-	CurrentWorkerID       int    `sql:"default:Null" json:"current_worker_id"`
-	CurrentWorkerInitials string `sql:"default:Null" json:"current_worker_initials"`
-	CurrentWorkerPhone    int    `json:"current_worker_phone"`
+	CurrentWorkers []CurrentWorker `json:"current_workers"`
 
 	Color        string `json:"color"`
 	Patina       string `json:"patina"`
@@ -89,9 +94,7 @@ type SavedOrders struct {
 	ClientInitials string `sql:",notnull" json:"client_initials"`
 	ClientPhone    int    `json:"client_phone"`
 
-	CurrentWorkerID       int    `sql:"default:Null"`
-	CurrentWorkerInitials string `sql:"default:Null" json:"current_worker_initials"`
-	CurrentWorkerPhone    int    `json:"current_worker_phone"`
+	CurrentWorkers []CurrentWorker `json:"current_workers"`
 
 	Color        string `json:"color"`
 	Patina       string `json:"patina"`
