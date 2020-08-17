@@ -27,6 +27,8 @@ func EditOrder(c echo.Context) error {
 	var order models.Orders
 	var changes string
 	var manager models.Managers
+	var currentWorkersForLogs string
+
 	// var session models.Sessions
 
 	err := c.Bind(&inputJSON)
@@ -187,7 +189,24 @@ func EditOrder(c echo.Context) error {
 
 	for i := 0; i < (len(inputJSON.CurrentWorkers)); i++ {
 
-		if inputJSON.CurrentWorkers[i].CurrentWorkerID != order.CurrentWorkers[i].CurrentWorkerID {
+		if len(order.CurrentWorkers) != 0 {
+
+			if inputJSON.CurrentWorkers[i].CurrentWorkerID != order.CurrentWorkers[i].CurrentWorkerID {
+
+				// Select Worker by id
+				err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkers[i].CurrentWorkerID).Select()
+				if err != nil {
+					return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
+				}
+
+				// Add worker by id
+				inputJSON.CurrentWorkers[i].CurrentWorkerInitials = worker.Initials
+				inputJSON.CurrentWorkers[i].CurrentWorkerPhone = worker.Phone
+
+				currentWorkersForLogs += worker.Initials + " "
+			}
+
+		} else {
 
 			// Select Worker by id
 			err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.CurrentWorkers[i].CurrentWorkerID).Select()
@@ -199,9 +218,14 @@ func EditOrder(c echo.Context) error {
 			inputJSON.CurrentWorkers[i].CurrentWorkerInitials = worker.Initials
 			inputJSON.CurrentWorkers[i].CurrentWorkerPhone = worker.Phone
 
-			changes += "Изменен \"Текущий работник заказа\" на \"" + inputJSON.CurrentWorkers[i].CurrentWorkerInitials + "\", номер телефона: \"" + strconv.Itoa(inputJSON.CurrentWorkers[i].CurrentWorkerPhone) + "\". "
+			currentWorkersForLogs += worker.Initials + " "
 
 		}
+	}
+
+	if currentWorkersForLogs != "" {
+
+		changes += "Измененены \"текущие работники заказа\" на: \"" + currentWorkersForLogs + ". "
 	}
 
 	if inputJSON.Color != order.Color {
