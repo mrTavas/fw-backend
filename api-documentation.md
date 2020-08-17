@@ -380,12 +380,75 @@ ___
 
     {
         "orders": [
+            
             {
-                "id": 1,
+                "id": 6,
                 "title": "Title",
                 "Date": "2020-06-30T17:33:32.59735+03:00",
                 "status": {
                     "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+                    "data_office_end": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_start": "2020-08-17T14:48:15.496975098+03:00",
+                    "data_manufacturing_end": "2020-08-17T15:20:12.28031819+03:00",
+                    "data_grinding_start": "2020-08-17T14:48:28.68531707+03:00",
+                    "data_grinding_end": "0001-01-01T00:00:00Z",
+                    "data_printing_start": "0001-01-01T00:00:00Z",
+                    "data_printing_end": "0001-01-01T00:00:00Z",
+                    "data_collecting_start": "0001-01-01T00:00:00Z",
+                    "data_collecting_end": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office_start": true,
+                    "status_office_end": true,
+                    "status_manufacturing_start": true,
+                    "status_manufacturing_end": true,
+                    "status_grinding_start": false,
+                    "status_grinding_end": false,
+                    "status_printing_start": false,
+                    "status_printing_end": false,
+                    "status_collecting_start": false,
+                    "status_collecting_end": false,
+                    "status_ready": false
+                },
+                "client_id": 0,
+                "client_initials": "Clientov A.V.",
+                "client_phone": 79888563211,
+                "current_workers": [
+                    {
+                        "current_worker_id": 1,
+                        "current_worker_initials": "Иванов И. И.",
+                        "current_worker_phone": 7988899999
+                    }
+                ],
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree",
+                "cost_carpenter": 3000,
+                "cost_grinder": 2000,
+                "cost_painter": 1500,
+                "cost_collector": 2000,
+                "params": [
+                    {
+                        "title": "Some Title ",
+                        "height": 12,
+                        "width": 0,
+                        "filenka": "filenka"
+                    },
+                    {
+                        "title": "Some Comment2",
+                        "height": 13,
+                        "width": 0,
+                        "filenka": "panel2"
+                    }
+                ],
+                "pdf_link": ""
+            },
+            {
+                "id": 8,
+                "title": "111",
+                "Date": "2020-08-17T15:17:24.619277+03:00",
+                "status": {
+                    "data_office_start": "2020-08-17T15:17:24.618768663+03:00",
                     "data_office_end": "0001-01-01T00:00:00Z",
                     "data_manufacturing_start": "0001-01-01T00:00:00Z",
                     "data_manufacturing_end": "0001-01-01T00:00:00Z",
@@ -409,35 +472,19 @@ ___
                     "status_ready": false
                 },
                 "client_id": 0,
-                "client_initials": "Clientov A.V.",
-                "client_phone": 79888563211,
-                "current_worker_id": 1,
-                "current_worker_initials": " Плотный П. В.",
-                "current_worker_phone": 8988879411111,
-                "color": "red",
-                "patina": "patina",
-                "fasad_article": "SomeArticle",
-                "material": "tree",
-                "cost_carpenter": 3000,
-                "cost_grinder": 2000,
-                "cost_painter": 1500,
-                "cost_collector": 2000,
-                "params": [
-                    {
-                        "title": "Some Title ",
-                        "height": 12,
-                        "width": 0,
-                        "filenka": "filenka"
-                    },
-                    {
-                        "title": "Some Comment2",
-                        "height": 13,
-                        "width": 0,
-                        "filenka": "panel2"
-                    }
-                "pdf_link": "http://fwqqq-backend.ddns.net:8001/uploads/orders/1/order1.pdf"
-
-                ]
+                "client_initials": "111",
+                "client_phone": 0,
+                "current_workers": null,
+                "color": "",
+                "patina": "",
+                "fasad_article": "",
+                "material": "",
+                "cost_carpenter": 0,
+                "cost_grinder": 111,
+                "cost_painter": 11,
+                "cost_collector": 0,
+                "params": null,
+                "pdf_link": ""
             }
         ]
     }
@@ -456,14 +503,15 @@ ___
     {
         "saved_orders": [
             {
-                "id": 1,
+                "ID": 1,
+                "order_id": 1,
                 "title": "Title",
-                "Date": "2020-06-30T17:33:32.59735+03:00",
+                "Date": "2020-08-16T23:38:26.210824+03:00",
                 "status": {
-                    "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
-                    "data_office_end": "0001-01-01T00:00:00Z",
-                    "data_manufacturing_start": "0001-01-01T00:00:00Z",
-                    "data_manufacturing_end": "0001-01-01T00:00:00Z",
+                    "data_office_start": "2020-08-16T23:38:26.209296101+03:00",
+                    "data_office_end": "2020-08-16T23:49:27.578364526+03:00",
+                    "data_manufacturing_start": "2020-08-17T00:24:56.738440422+03:00",
+                    "data_manufacturing_end": "2020-08-17T00:26:40.310909824+03:00",
                     "data_grinding_start": "0001-01-01T00:00:00Z",
                     "data_grinding_end": "0001-01-01T00:00:00Z",
                     "data_printing_start": "0001-01-01T00:00:00Z",
@@ -472,9 +520,9 @@ ___
                     "data_collecting_end": "0001-01-01T00:00:00Z",
                     "data_ready": "0001-01-01T00:00:00Z",
                     "status_office_start": true,
-                    "status_office_end": false,
-                    "status_manufacturing_start": false,
-                    "status_manufacturing_end": false,
+                    "status_office_end": true,
+                    "status_manufacturing_start": true,
+                    "status_manufacturing_end": true,
                     "status_grinding_start": false,
                     "status_grinding_end": false,
                     "status_printing_start": false,
@@ -483,12 +531,21 @@ ___
                     "status_collecting_end": false,
                     "status_ready": false
                 },
-                "client_id": 0,
+                "current_worker_id": 0,
                 "client_initials": "Clientov A.V.",
-                "client_phone": 79888563211,
-                "current_worker_id": 1,
-                "current_worker_initials": " Плотный П. В.",
-                "current_worker_phone": 8988879411111,
+                "client_phone": 79888563200,
+                "current_workers": [
+                    {
+                        "current_worker_id": 1,
+                        "current_worker_initials": " Потный Г. Г.",
+                        "current_worker_phone": 898887940000
+                    },
+                    {
+                        "current_worker_id": 2,
+                        "current_worker_initials": "Бернард А. Г",
+                        "current_worker_phone": 89734324222
+                    }
+                ],
                 "color": "red",
                 "patina": "patina",
                 "fasad_article": "SomeArticle",
@@ -510,8 +567,68 @@ ___
                         "width": 0,
                         "filenka": "panel2"
                     }
-                "pdf_link": "http://fwqqq-backend.ddns.net:8001/uploads/orders/1/order1.pdf"
-
+                ]
+            },
+            {
+                "ID": 8,
+                "order_id": 6,
+                "title": "Title",
+                "Date": "2020-06-30T17:33:32.59735+03:00",
+                "status": {
+                    "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+                    "data_office_end": "0001-01-01T00:00:00Z",
+                    "data_manufacturing_start": "2020-08-17T14:48:15.496975098+03:00",
+                    "data_manufacturing_end": "2020-08-17T15:20:12.28031819+03:00",
+                    "data_grinding_start": "2020-08-17T14:48:28.68531707+03:00",
+                    "data_grinding_end": "0001-01-01T00:00:00Z",
+                    "data_printing_start": "0001-01-01T00:00:00Z",
+                    "data_printing_end": "0001-01-01T00:00:00Z",
+                    "data_collecting_start": "0001-01-01T00:00:00Z",
+                    "data_collecting_end": "0001-01-01T00:00:00Z",
+                    "data_ready": "0001-01-01T00:00:00Z",
+                    "status_office_start": true,
+                    "status_office_end": true,
+                    "status_manufacturing_start": true,
+                    "status_manufacturing_end": true,
+                    "status_grinding_start": false,
+                    "status_grinding_end": false,
+                    "status_printing_start": false,
+                    "status_printing_end": false,
+                    "status_collecting_start": false,
+                    "status_collecting_end": false,
+                    "status_ready": false
+                },
+                "current_worker_id": 0,
+                "client_initials": "Clientov A.V.",
+                "client_phone": 79888563211,
+                "current_workers": [
+                    {
+                        "current_worker_id": 6,
+                        "current_worker_initials": "Рома",
+                        "current_worker_phone": 9888644444
+                    }
+                ],
+                "color": "red",
+                "patina": "patina",
+                "fasad_article": "SomeArticle",
+                "material": "tree",
+                "cost_carpenter": 3000,
+                "cost_grinder": 2000,
+                "cost_painter": 1500,
+                "cost_collector": 2000,
+                "params": [
+                    {
+                        "title": "Some Title ",
+                        "height": 12,
+                        "width": 0,
+                        "filenka": "filenka"
+                    },
+                    {
+                        "title": "Some Comment2",
+                        "height": 13,
+                        "width": 0,
+                        "filenka": "panel2"
+                    }
                 ]
             }
         ]
@@ -523,7 +640,7 @@ ___
     http://fwqqq-backend.ddns.net:1323/api/auth/GetOrderStatus
     
 Описание:
-Взвращает статус заказа по его id. Метод Post.
+Взвращает статус заказа и иницыалы работников заказа (за все этапы, включая выполненные) по его id. Метод Post.
 Пример тела запроса:
 
     {
@@ -533,28 +650,40 @@ ___
 Пример ответа:
 
     {
-        "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
-        "data_office_end": "0001-01-01T00:00:00Z",
-        "data_manufacturing_start": "0001-01-01T00:00:00Z",
-        "data_manufacturing_end": "0001-01-01T00:00:00Z",
-        "data_grinding_start": "0001-01-01T00:00:00Z",
-        "data_grinding_end": "0001-01-01T00:00:00Z",
-        "data_printing_start": "0001-01-01T00:00:00Z",
-        "data_printing_end": "0001-01-01T00:00:00Z",
-        "data_collecting_start": "0001-01-01T00:00:00Z",
-        "data_collecting_end": "0001-01-01T00:00:00Z",
-        "data_ready": "0001-01-01T00:00:00Z",
-        "status_office_start": true,
-        "status_office_end": false,
-        "status_manufacturing_start": false,
-        "status_manufacturing_end": false,
-        "status_grinding_start": false,
-        "status_grinding_end": false,
-        "status_printing_start": false,
-        "status_printing_end": false,
-        "status_collecting_start": false,
-        "status_collecting_end": false,
-        "status_ready": false
+        "statuses": {
+            "data_office_start": "2020-06-30T17:33:32.596472371+03:00",
+            "data_office_end": "0001-01-01T00:00:00Z",
+            "data_manufacturing_start": "2020-08-17T14:48:15.496975098+03:00",
+            "data_manufacturing_end": "2020-08-17T15:20:12.28031819+03:00",
+            "data_grinding_start": "2020-08-17T14:48:28.68531707+03:00",
+            "data_grinding_end": "0001-01-01T00:00:00Z",
+            "data_printing_start": "0001-01-01T00:00:00Z",
+            "data_printing_end": "0001-01-01T00:00:00Z",
+            "data_collecting_start": "0001-01-01T00:00:00Z",
+            "data_collecting_end": "0001-01-01T00:00:00Z",
+            "data_ready": "0001-01-01T00:00:00Z",
+            "status_office_start": true,
+            "status_office_end": true,
+            "status_manufacturing_start": true,
+            "status_manufacturing_end": true,
+            "status_grinding_start": false,
+            "status_grinding_end": false,
+            "status_printing_start": false,
+            "status_printing_end": false,
+            "status_collecting_start": false,
+            "status_collecting_end": false,
+            "status_ready": false
+        },
+        "carpenters": [
+            " Потный Г. Г.",
+            " Потный Г. Г.",
+            "Рома"
+        ],
+        "grinders": [
+            " Потный Г. Г."
+        ],
+        "painters": null,
+        "collectors": null
     }
 
 Пример ответа в случае если заказа с таким id несуществует:
@@ -569,12 +698,18 @@ ___
     fwqqq-backend.ddns.net:1323/api/auth/StartStep
     
 Описание:
-Устанавливает значение следующего статуса заказа с тегом _start  в `true` и устанавливает текущее время для данного статуса. Устанавливает нового работника заказа. Метод Post. При использовании данного метода в лог запишутся изменения в заказе, например: "Заказ начал этап manufacturing. Назначенный работник: Иванов И. И."
+Устанавливает значение следующего статуса заказа с тегом _start  в `true` и устанавливает текущее время для данного статуса. Устанавливает нового работника (или работников) заказа. Метод Post. При использовании данного метода в лог запишутся изменения в заказе, например: "Заказ начал этап manufacturing. Назначенный работник: Иванов И. И."
 Пример тела запроса:
 
     {
-        "order_id": 1,
-        "new_worker_id": 2
+        "order_id": 6,
+        "new_workers_id": [
+            {
+                "id": 1
+            },
+            {
+                "id": 6
+            }]
     }
 
 
@@ -665,7 +800,7 @@ ___
 
 
     {
-        "id": 1,
+        "id": 6,
         "title": "Title",
         "Date": "2020-06-30T17:33:32.59735+03:00",
         "status": {
@@ -681,8 +816,8 @@ ___
             "data_collecting_end": "0001-01-01T00:00:00Z",
             "data_ready": "0001-01-01T00:00:00Z",
             "status_office_start": true,
-            "status_office_end": false,
-            "status_manufacturing_start": false,
+            "status_office_end": true,
+            "status_manufacturing_start": true,
             "status_manufacturing_end": false,
             "status_grinding_start": false,
             "status_grinding_end": false,
@@ -695,9 +830,10 @@ ___
         "client_id": 0,
         "client_initials": "Clientov A.V.",
         "client_phone": 79888563211,
-        "current_worker_id": 1,
-        "current_worker_initials": " Плотный П. В.",
-        "current_worker_phone": 8988879411111,
+        "current_workers":[
+            {
+                "current_worker_id": 6
+            }],
         "color": "red",
         "patina": "patina",
         "fasad_article": "SomeArticle",
@@ -719,7 +855,6 @@ ___
                 "width": 0,
                 "filenka": "panel2"
             }
-
         ]
     }
 
