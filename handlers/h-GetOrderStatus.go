@@ -52,7 +52,7 @@ func GetOrderStatus(c echo.Context) error {
 
 			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
 
-				OutResponse.Сarpenters[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+				OutResponse.Сarpenters = append(OutResponse.Сarpenters, orders[i].CurrentWorkers[j].CurrentWorkerInitials)
 			}
 		}
 
@@ -60,7 +60,7 @@ func GetOrderStatus(c echo.Context) error {
 
 			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
 
-				OutResponse.Grinders[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+				OutResponse.Grinders = append(OutResponse.Grinders, orders[i].CurrentWorkers[j].CurrentWorkerInitials)
 			}
 		}
 
@@ -68,7 +68,7 @@ func GetOrderStatus(c echo.Context) error {
 
 			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
 
-				OutResponse.Painters[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+				OutResponse.Painters = append(OutResponse.Painters, orders[i].CurrentWorkers[j].CurrentWorkerInitials)
 			}
 		}
 
@@ -76,7 +76,7 @@ func GetOrderStatus(c echo.Context) error {
 
 			for j := 0; j < (len(orders[i].CurrentWorkers)); j++ {
 
-				OutResponse.Collectors[j] = orders[i].CurrentWorkers[j].CurrentWorkerInitials
+				OutResponse.Collectors = append(OutResponse.Collectors, orders[i].CurrentWorkers[j].CurrentWorkerInitials)
 			}
 		}
 	}
