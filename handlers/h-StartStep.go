@@ -95,19 +95,6 @@ func StartStep(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusOK, "Есть незавершенные этапы.")
 	}
 
-	// // Change Worker in current order
-	// for i := 0; i < (len(inputJSON.NewWorkersID)); i++ {
-	// 	println("pass -> +1")
-
-	// 	order.CurrentWorkers[i].CurrentWorkerID = workers[i].CurrentWorkerID
-	// 	order.CurrentWorkers[i].CurrentWorkerInitials = workers[i].CurrentWorkerInitials
-	// 	order.CurrentWorkers[i].CurrentWorkerPhone = workers[i].CurrentWorkerPhone
-
-	// 	// currentWorkersForLogs += workers[i].CurrentWorkerInitials + " "
-
-	// 	println("pass -> +2")
-	// }
-
 	changes := "Заказ начал этап \"" + currentStatus + "\". Назначенные на данный этап работники: \"" + currentWorkersForLogs + "\""
 
 	// Save Logs
