@@ -12,8 +12,8 @@ import (
 )
 
 type nextStatus struct {
-	OrderID      int        `json:"order_id"`
-	NewWorkersID []WorkerID `json:"new_workers_id"`
+	OrderID      int   `json:"order_id"`
+	NewWorkersID []int `json:"new_workers_id"`
 }
 
 // StartStep - start next step
@@ -38,9 +38,9 @@ func StartStep(c echo.Context) error {
 
 		// Select Worker by id
 		// id 0 - it's a last step where new worker don't need
-		if inputJSON.NewWorkersID[i].ID != 0 {
+		if inputJSON.NewWorkersID[i] != 0 {
 
-			err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.NewWorkersID[i].ID).Select()
+			err = db.Conn.Model(&worker).Where("ID = ?", inputJSON.NewWorkersID[i]).Select()
 			if err != nil {
 				return echo.NewHTTPError(http.StatusOK, "Worker not found. "+err.Error())
 			}
