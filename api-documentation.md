@@ -704,14 +704,8 @@ ___
 Пример тела запроса:
 
     {
-        "order_id": 6,
-        "new_workers_id": [
-            {
-                "id": 1
-            },
-            {
-                "id": 6
-            }]
+        "order_id": 10,
+        "new_workers_id": [13, 17]
     }
 
 
